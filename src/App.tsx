@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/root';
+import SocialCalls, { loader as socialCallsLoader } from './routes/socialCalls';
 import ErrorPage from './components/ErrorPage/ErrorPage';
-import SocialCalls from './components/SocialCalls/SocialCalls';
 import Layout from './components/Layout/Layout';
 
 const router = createBrowserRouter([
@@ -16,6 +16,7 @@ const router = createBrowserRouter([
       {
         path: '/socialCalls',
         element: <SocialCalls />,
+        loader: socialCallsLoader,
       },
     ],
   },
