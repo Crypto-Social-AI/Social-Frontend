@@ -40,9 +40,8 @@ export const PostSchema = z.object({
   isDiscord: z.boolean(),
 });
 
-type SocialPost = z.infer<typeof PostSchema>;
-
-export default SocialPost;
+export type SocialPost = z.infer<typeof PostSchema>;
+export type SocialPosts = SocialPost[];
 
 export type BgColor = 'base' | 'secondary' | 'contrast';
 
