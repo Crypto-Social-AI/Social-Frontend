@@ -31,7 +31,7 @@ export default [
           tokenImage={record?.tokenImage}
           tokenName={record?.tokenName}
           tokenSymbol={record?.tokenSymbol}
-          tokenImgBgColor='secondary'
+          tokenImgBgColor='contrast'
         />
       );
     },

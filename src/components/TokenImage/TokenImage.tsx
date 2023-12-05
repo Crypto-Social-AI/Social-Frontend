@@ -1,8 +1,7 @@
 import { type BgColor } from 'lib/types';
-
 // import Skeleton from 'react-loading-skeleton';
 // import 'react-loading-skeleton/dist/skeleton.css';
-// import uniswapLogo from 'assets/images/uniswap-logo.png';
+import uniswapLogo from 'assets/images/uniswap-logo.png';
 
 type SizeMapping = {
   [key in 16 | 24 | 28 | 32 | 36 | 40]: string;
@@ -50,11 +49,11 @@ function TokenImage({
     <div className={`${bgVariants[bg]} ${getSizeClasses(size)} rounded-full flex items-center justify-center relative`}>
       {tokenIcon !== null ? (
         <>
-          {/* {hasDexToken && (
+          {hasDexToken && (
             <div className='w-[14px] h-[14px] bg-white rounded-full flex items-center justify-center absolute top-[-3px] right-[-1px]'>
               <img src={uniswapLogo} alt='Uniswap' className='w-[10px] h-[10px] object-cover' />
             </div>
-          )} */}
+          )}
           {tokenIcon && (
             <img
               src={tokenIcon}
@@ -77,13 +76,13 @@ function TokenImage({
         </>
       ) : (
         <>
-          {/* {hasDexToken && (
+          {hasDexToken && (
             <div className='w-[14px] h-[14px] bg-white rounded-full flex items-center justify-center absolute top-[-3px] right-[-1px]'>
               <img src={uniswapLogo} alt='Uniswap' className='w-[10px] h-[10px] object-cover' />
             </div>
-          )} */}
+          )}
 
-          <span className='uppercase text-text-primary'>{firstLetterOfSymbol}</span>
+          <span className='uppercase text-text-contrast'>{firstLetterOfSymbol}</span>
 
           {/* {(!loading && <span className='uppercase text-text-primary'>{firstLetterOfSymbol}</span>) || (
             <Skeleton
