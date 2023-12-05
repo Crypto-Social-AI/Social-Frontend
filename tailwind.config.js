@@ -23,6 +23,10 @@ module.exports = {
         'etherscan-logo-top': 'var(--etherscan-logo-top)',
         'etherscan-logo-bottom': 'var(--etherscan-logo-bottom)',
       },
+      backgroundColor: {
+        'red-opacity-20': 'rgba(239, 68, 68, 0.2)',
+        'green-opacity-20': 'rgba(4, 120, 87, 0.2)',
+      },
     },
   },
   plugins: [],
