@@ -58,3 +58,18 @@ export const truncateString = (text: string | null, maxLength: number) => {
   }
   return text;
 };
+
+/**
+ * Formats an address by extracting the first four characters and the last four characters
+ * and concatenating them with an ellipsis in between.
+ * @param {string} address - The address to be formatted.
+ * @returns {string} The formatted address string.
+ */
+export const formatAddress = (address = '', to = 4) => `${address.slice(0, to)}...${address.slice(-4)}`;
+
+export const append0xToAddress = (address: string) => {
+  if (!address) return '';
+  if (address.startsWith('0x')) return address;
+
+  return `0x${address}`;
+};
