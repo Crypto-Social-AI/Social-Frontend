@@ -17,7 +17,7 @@ export default function SocialCalls() {
   console.log({ socialCalls });
 
   return (
-    <Container className='mt-12'>
+    <Container className='mt-12 px-12'>
       <SocialCallsTable socialCalls={socialCalls} />
     </Container>
   );
