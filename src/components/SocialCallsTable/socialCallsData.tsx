@@ -46,7 +46,7 @@ export default [
       return (
         <div className='flex flex-col'>
           <span> {truncateString(record?.channelName ?? '', 24)}</span>
-          <Tooltip content='tippy_social_channel_link_text'>
+          <Tooltip content='Open Telegram channel'>
             <a
               href={record?.channelLink ?? ''}
               target='_blank'
