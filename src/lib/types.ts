@@ -31,13 +31,13 @@ export const PostSchema = z.object({
   priceInComommonTokenThreeWeeksLater: z.string().nullable(),
   priceInComommonTokenOneMonthLater: z.string().nullable(),
   socialAccountId: z.number(),
-  username: z.string(),
-  channelLink: z.string(),
-  channelName: z.string(),
-  photo: z.string().nullable(),
-  isTwitter: z.boolean(),
-  isTelegram: z.boolean(),
-  isDiscord: z.boolean(),
+  username: z.string().optional(),
+  channelLink: z.string().optional().nullable(),
+  channelName: z.string().optional().nullable(),
+  photo: z.string().optional().nullable(),
+  isTwitter: z.boolean().default(false),
+  isTelegram: z.boolean().default(false),
+  isDiscord: z.boolean().default(false),
 });
 
 export type SocialPost = z.infer<typeof PostSchema>;
@@ -70,10 +70,10 @@ export type SortConfig = {
 
 export const AccountWithPostsSchema = z.object({
   id: z.string(),
-  username: z.string().nullable(),
-  channelLink: z.string(),
-  channelName: z.string(),
-  photo: z.string().nullable(),
+  username: z.string().optional(),
+  channelLink: z.string().optional().nullable(),
+  channelName: z.string().optional().nullable(),
+  photo: z.string().optional().nullable(),
   isTwitter: z.boolean().default(false),
   isTelegram: z.boolean().default(false),
   isDiscord: z.boolean().default(false),
