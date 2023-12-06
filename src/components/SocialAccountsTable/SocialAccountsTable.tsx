@@ -1,7 +1,7 @@
 import Table from 'components/Table/Table';
 import { type SocialAccountWithPost } from 'lib/types';
 import socialAccountsData from './socialAccountsData';
-// import ExpandedContent from './ExpandedContent/ExpandedContent';
+import ExpandedContent from './ExpandedContent';
 
 type SocialAccountsTableProps = {
   socialAccounts: SocialAccountWithPost[];
@@ -15,8 +15,8 @@ export default function SocialAccountsTable({ socialAccounts }: SocialAccountsTa
       displayedData={socialAccounts}
       renderedRecords={socialAccountsData}
       idProp='id'
-      // isExpandable
-      // renderExpandedContent={(record) => <ExpandedContent record={record} />}
+      isExpandable
+      renderExpandedContent={(record) => <ExpandedContent posts={record.posts} />}
     />
   );
 }
