@@ -1,4 +1,5 @@
 import { ConnectWallet } from '@thirdweb-dev/react';
+import Container from 'components/Container/Container';
 import { FaWallet } from 'react-icons/fa6';
 import { useNavigation } from 'react-router-dom';
 
@@ -6,7 +7,7 @@ export default function Root() {
   const navigation = useNavigation();
 
   return (
-    <>
+    <Container>
       {navigation.state === 'loading' ? (
         <span>Loading...</span>
       ) : (
@@ -23,6 +24,6 @@ export default function Root() {
           </>
         </div>
       )}
-    </>
+    </Container>
   );
 }
