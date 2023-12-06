@@ -1,6 +1,7 @@
 import { type SocialPost } from 'lib/types';
 import TokenSymbolAndName from '../TokenSymbolAndName/TokenSymbolAndName';
 import NumberFormat from 'components/NumberFormat.tsx/NumberFormat';
+import Tooltip from 'components/Tooltip/Tooltip';
 import {
   getCurrentProfitPercentage,
   getMaxProfitPercentage,
@@ -44,17 +45,17 @@ export default [
 
       return (
         <div className='flex flex-col'>
-          <span> {truncateString(record?.channelName, 24)}</span>
-          {/* <Tooltip content='tippy_social_channel_link_text'> */}
-          <a
-            href={record?.channelLink}
-            target='_blank'
-            rel='noreferrer'
-            className='text-blue hover:text-blue-hover w-fit'
-          >
-            {socialMedia}
-          </a>
-          {/* </Tooltip> */}
+          <span> {truncateString(record?.channelName ?? '', 24)}</span>
+          <Tooltip content='tippy_social_channel_link_text'>
+            <a
+              href={record?.channelLink ?? ''}
+              target='_blank'
+              rel='noreferrer'
+              className='text-blue hover:text-blue-hover w-fit'
+            >
+              {socialMedia}
+            </a>
+          </Tooltip>
         </div>
       );
     },
@@ -83,8 +84,6 @@ export default [
       const profit = getMaxProfitPercentage(record);
       const bgColor = profit && profit < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = profit && profit < 0 ? 'redArb' : 'greenArb';
-
-      console.log({ profit });
 
       return (
         <div className={`${bgColor} px-4 py-1 rounded-lg w-fit flex items-center gap-1`}>
