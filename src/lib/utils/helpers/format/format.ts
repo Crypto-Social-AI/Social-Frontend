@@ -73,3 +73,36 @@ export const append0xToAddress = (address: string) => {
 
   return `0x${address}`;
 };
+
+type Column = {
+  id: string;
+  header: string;
+  render: (data: any) => JSX.Element;
+};
+
+type AdditionalColumn = {
+  id: string;
+  header: string;
+  render: (data: any) => JSX.Element;
+  position?: number;
+};
+
+export const getFilteredColumnsData = (
+  baseRecords: Column[],
+  excludeColumnIds: string[] = [],
+  additionalColumns: AdditionalColumn[] = [],
+): Column[] => {
+  const filteredColumns = baseRecords.filter((column: any) => !excludeColumnIds.includes(column.id));
+
+  additionalColumns.forEach(({ id, header, render, position }) => {
+    if (position !== undefined) {
+      // Insert new column at the specified position
+      filteredColumns.splice(position, 0, { id, header, render });
+    } else {
+      // If no position is specified, push it at the end of the array
+      filteredColumns.push({ id, header, render });
+    }
+  });
+
+  return filteredColumns;
+};
