@@ -6,7 +6,6 @@ import Container from 'components/Container/Container';
 
 export async function loader(): Promise<{ socialCalls: SocialPosts }> {
   const socialCalls = await getSocialCalls();
-  console.log({ socialCalls });
 
   return { socialCalls };
 }
@@ -14,7 +13,6 @@ export async function loader(): Promise<{ socialCalls: SocialPosts }> {
 export default function SocialCalls() {
   const data = useLoaderData() as { socialCalls: SocialPosts };
   const socialCalls = data.socialCalls;
-  console.log({ socialCalls });
 
   return (
     <Container className='mt-12 px-12'>
