@@ -4,7 +4,7 @@ import socialAccountsData from './socialAccountsData';
 import ExpandedContent from './ExpandedContent';
 
 type SocialAccountsTableProps = {
-  socialAccounts: SocialAccountWithPost[];
+  socialAccounts: SocialAccountWithPost[] | null;
 };
 
 export default function SocialAccountsTable({ socialAccounts }: SocialAccountsTableProps) {
