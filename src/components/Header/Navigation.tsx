@@ -15,7 +15,7 @@ export default function Navigation() {
           <ul className='flex gap-12 justify-center items-center'>
             <li>
               <NavLink
-                to='/socialCalls'
+                to='/'
                 className={({ isActive }: NavLinkProps) =>
                   isActive
                     ? 'text-yellow-300 underline'
