@@ -4,7 +4,7 @@ import { type SocialPosts } from 'lib/types';
 import ExpandedContent from './ExpandedContent/ExpandedContent';
 
 type SocialCallsTableProps = {
-  socialCalls: SocialPosts;
+  socialCalls: SocialPosts | null;
 };
 
 export default function SocialCallsTable({ socialCalls }: SocialCallsTableProps) {
