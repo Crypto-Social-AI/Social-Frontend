@@ -1,18 +1,21 @@
-import { useLoaderData } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useAddress } from '@thirdweb-dev/react';
 import { getSocialCalls } from 'lib/utils/requests/getSocialCalls';
 import { type SocialPosts } from 'lib/types';
 import SocialCallsTable from 'components/SocialCallsTable/SocialCallsTable';
 import Container from 'components/Container/Container';
 
-export async function loader(): Promise<{ socialCalls: SocialPosts }> {
-  const socialCalls = await getSocialCalls();
-
-  return { socialCalls };
-}
-
 export default function SocialCalls() {
-  const data = useLoaderData() as { socialCalls: SocialPosts };
-  const socialCalls = data.socialCalls;
+  const address = useAddress();
+  const [socialCalls, setSocialCalls] = useState<SocialPosts | null>(null);
+
+  useEffect(() => {
+    if (address) {
+      getSocialCalls()
+        .then((data) => setSocialCalls(data))
+        .catch((error) => console.error('Failed to fetch data (getSocialCalls)', error));
+    }
+  }, [address]);
 
   return (
     <Container className='mt-12 px-12'>
