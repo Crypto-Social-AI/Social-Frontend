@@ -15,8 +15,10 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const protectedRoutes = ['/socialCalls', '/socialAccounts']; // Add more protected routes as needed
+
   useEffect(() => {
-    if (!address) {
+    if (!address && protectedRoutes.includes(location.pathname)) {
       navigate('/', { state: { from: location }, replace: true });
     }
   }, [address, navigate, location]);
