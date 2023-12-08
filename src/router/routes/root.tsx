@@ -1,15 +1,15 @@
-import { ConnectWallet } from '@thirdweb-dev/react';
+import { ConnectWallet, useAddress } from '@thirdweb-dev/react';
 import Container from 'components/Container/Container';
 import { FaWallet } from 'react-icons/fa6';
-import { useNavigation } from 'react-router-dom';
+import SocialCalls from './socialCalls';
 
 export default function Root() {
-  const navigation = useNavigation();
+  const address = useAddress();
 
   return (
     <Container>
-      {navigation.state === 'loading' ? (
-        <span>Loading...</span>
+      {address ? (
+        <SocialCalls />
       ) : (
         <div className='flex flex-col gap-6 justify-center items-center mt-12 mx-8 border border-yellow-400 rounded-xl py-6 px-4 bg-gradient-to-tr from-yellow-400 via-black to-black'>
           <>
