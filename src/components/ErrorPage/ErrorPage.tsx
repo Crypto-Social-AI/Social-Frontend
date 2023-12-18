@@ -5,7 +5,7 @@ export default function ErrorPage() {
   const isNotFound = !error;
 
   return (
-    <div className='flex flex-col items-center justify-center gap-4 h-screen text-4xl'>
+    <div className='flex flex-col items-center justify-center gap-4 h-error-page-height text-4xl'>
       <h1>Oops!</h1>
       {isNotFound ? (
         <p>Sorry, the page you&apos;re looking for cannot be found.</p>

@@ -27,6 +27,9 @@ module.exports = {
         'red-opacity-20': 'rgba(239, 68, 68, 0.2)',
         'green-opacity-20': 'rgba(4, 120, 87, 0.2)',
       },
+      height: {
+        'error-page-height': 'calc(100vh - 7.1rem)',
+      },
     },
   },
   plugins: [],
