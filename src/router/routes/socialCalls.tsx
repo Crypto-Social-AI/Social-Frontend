@@ -8,18 +8,21 @@ import Container from 'components/Container/Container';
 export default function SocialCalls() {
   const address = useAddress();
   const [socialCalls, setSocialCalls] = useState<SocialPosts | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (address) {
+      setLoading(true);
       getSocialCalls()
         .then((data) => setSocialCalls(data))
-        .catch((error) => console.error('Failed to fetch data (getSocialCalls)', error));
+        .catch((error) => console.error('Failed to fetch data (getSocialCalls)', error))
+        .finally(() => setLoading(false));
     }
   }, [address]);
 
   return (
     <Container className='mt-12 px-12'>
-      <SocialCallsTable socialCalls={socialCalls} />
+      <SocialCallsTable socialCalls={socialCalls} loading={loading} />
     </Container>
   );
 }
