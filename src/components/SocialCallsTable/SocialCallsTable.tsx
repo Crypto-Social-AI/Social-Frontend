@@ -5,15 +5,17 @@ import ExpandedContent from './ExpandedContent/ExpandedContent';
 
 type SocialCallsTableProps = {
   socialCalls: SocialPosts | null;
+  loading: boolean;
 };
 
-export default function SocialCallsTable({ socialCalls }: SocialCallsTableProps) {
+export default function SocialCallsTable({ socialCalls, loading }: SocialCallsTableProps) {
   return (
     <Table
       className='max-h-[650px]'
       dataSrc={socialCalls}
       displayedData={socialCalls}
       renderedRecords={socialCallsData}
+      loading={loading}
       idProp='id'
       isExpandable
       renderExpandedContent={(record) => <ExpandedContent record={record} />}

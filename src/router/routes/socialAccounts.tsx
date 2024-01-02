@@ -8,20 +8,23 @@ import { getSocialAccounts } from 'lib/utils/requests/getSocialAccounts';
 export default function SocialAccounts() {
   const address = useAddress();
   const [socialAccounts, setSocialAccounts] = useState<SocialAccountWithPost[] | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (address) {
+      setLoading(true);
       getSocialAccounts()
         .then((data) => setSocialAccounts(data))
         .catch((error) => {
           console.error('Failed to fetch social accounts:', error);
-        });
+        })
+        .finally(() => setLoading(false));
     }
   }, [address]);
 
   return (
     <Container className='mt-12 px-12'>
-      <SocialAccountsTable socialAccounts={socialAccounts} />
+      <SocialAccountsTable socialAccounts={socialAccounts} loading={loading} />
     </Container>
   );
 }

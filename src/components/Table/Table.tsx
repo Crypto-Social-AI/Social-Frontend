@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import clsx from 'clsx';
 // import Spinner from 'components/Loaders/Spinner';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
@@ -41,9 +42,14 @@ function Table({
   return (
     <div>
       {loading && <span>Loading...</span>}
-      <div onScroll={handleScroll} className={`${className} mx-auto w-full overflow-x-auto rounded-lg`}>
+      <div
+        onScroll={handleScroll}
+        className={clsx('mx-auto w-full overflow-x-auto rounded-md', className, {
+          'border border-secondary': !loading,
+        })}
+      >
         {hasData ? (
-          <table className='w-full rounded-lg text-xl text-left text-text-primary whitespace-nowrap'>
+          <table className='w-full rounded-md text-xl text-left text-text-primary whitespace-nowrap'>
             {showHeader && (
               <TableHeader
                 uncommonTokenSymbol={uncommonToken?.symbol}
