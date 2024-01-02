@@ -13,7 +13,7 @@ function CopyClipboard({ copyText, size = 13, bg = 'base' }: CopyClipboardProps)
   const [copyStatus, setCopyStatus] = useState('');
 
   const bgColorVariants = {
-    base: 'bg-primary',
+    base: 'bg-background',
     light: 'bg-secondary',
   };
 

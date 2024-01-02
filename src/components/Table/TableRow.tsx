@@ -28,7 +28,9 @@ function TableRow({
     <>
       <tr
         className={`border-b w-full ${
-          record?.[idProp] === expandedRowId ? 'bg-secondary border-b border-contrast' : 'bg-primary border-secondary'
+          record?.[idProp] === expandedRowId
+            ? 'bg-secondary border-b border-contrast'
+            : 'bg-background border-secondary'
         } ${clickableRows ? 'hover:bg-contrast cursor-pointer transition-all duration-200' : ''}`}
         onClick={clickableRows && handleColClick ? (e) => handleColClick(e, record) : undefined}
       >

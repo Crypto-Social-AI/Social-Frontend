@@ -27,7 +27,7 @@ function TableHeader({ records, handleSortClick, sortConfig, uncommonTokenSymbol
 
   return (
     <thead className='text-text-primary sticky top-0 z-[1]'>
-      <tr className='bg-primary'>
+      <tr className='bg-background'>
         {isExpandable && <th className=''> </th>}
         {records.map((record: any) => {
           const columnId = record.sortKey ?? record?.id;
