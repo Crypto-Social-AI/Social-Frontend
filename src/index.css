@@ -7,8 +7,8 @@
 
 @layer base {
   :root {
-    --background: #1c1c1c;
-    --primary: #0b0b0b;
+    --background: #0b0b0b;
+    --primary: #1c1c1c;
     --secondary: #2c2c2c;
     --contrast: #facc15;
     --text-primary: #cbd5e1;
@@ -59,9 +59,10 @@ body {
 
 ::-webkit-scrollbar-track {
   background: var(--primary);
+  border-radius: 2.75px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--secondary);
-  border-radius: 16px;
+  border-radius: 2.75px;
 }
