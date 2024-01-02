@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import clsx from 'clsx';
-// import Spinner from 'components/Loaders/Spinner';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import { type CommonTableProps, type SortConfig } from '../../lib/types';
@@ -41,45 +40,42 @@ function Table({
 
   return (
     <div>
-      {loading && <span>Loading...</span>}
       <div
         onScroll={handleScroll}
         className={clsx('mx-auto w-full overflow-x-auto rounded-md', className, {
           'border border-secondary': !loading,
         })}
       >
-        {hasData ? (
-          <table className='w-full rounded-md text-xl text-left text-text-primary whitespace-nowrap'>
-            {showHeader && (
-              <TableHeader
-                uncommonTokenSymbol={uncommonToken?.symbol}
-                records={renderedRecords}
-                handleSortClick={handleSortClick}
-                sortConfig={sortConfig}
-                isExpandable={isExpandable}
-              />
-            )}
-            <TableBody
-              idProp={idProp}
-              displayedData={displayedData}
-              clickableRows={clickableRows}
-              handleColClick={handleColClick}
-              renderedRecords={renderedRecords}
+        <table className='w-full rounded-md text-xl text-left text-text-primary whitespace-nowrap'>
+          {showHeader && (
+            <TableHeader
+              uncommonTokenSymbol={uncommonToken?.symbol}
+              records={renderedRecords}
+              handleSortClick={handleSortClick}
+              sortConfig={sortConfig}
               isExpandable={isExpandable}
-              expandedRowId={expandedRowId}
-              setExpandedRowId={setExpandedRowId}
-              renderExpandedContent={renderExpandedContent}
             />
-          </table>
-        ) : (
-          <>
-            {!loading && !hasData && (
-              <div className='flex justify-center items-center h-full'>
-                <span className='text-3xl text-text-primary'>No records found.</span>
-              </div>
-            )}
-          </>
-        )}
+          )}
+          <TableBody
+            idProp={idProp}
+            loading={loading}
+            displayedData={displayedData}
+            clickableRows={clickableRows}
+            handleColClick={handleColClick}
+            renderedRecords={renderedRecords}
+            isExpandable={isExpandable}
+            expandedRowId={expandedRowId}
+            setExpandedRowId={setExpandedRowId}
+            renderExpandedContent={renderExpandedContent}
+          />
+        </table>
+        <>
+          {!loading && !hasData && (
+            <div className='flex justify-center items-center h-full'>
+              <span className='text-3xl text-text-primary'>No records found.</span>
+            </div>
+          )}
+        </>
       </div>
       {showTotalRecordsInfo && (
         <span className='text-2xl flex justify-end mt-2 px-6 py-4'>
