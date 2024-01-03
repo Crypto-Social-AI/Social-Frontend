@@ -61,6 +61,7 @@ export type CommonTableProps = {
   expandedRowId?: string | null;
   setExpandedRowId?: React.Dispatch<React.SetStateAction<string | null>>;
   renderExpandedContent?: (record: any) => JSX.Element;
+  error?: Error | null;
 };
 
 export type SortConfig = {
