@@ -11,7 +11,7 @@ type SocialCallsTableProps = {
 export default function SocialCallsTable({ socialCalls, loading }: SocialCallsTableProps) {
   return (
     <Table
-      className='max-h-[650px]'
+      className='max-h-[733px]'
       dataSrc={socialCalls}
       displayedData={socialCalls}
       renderedRecords={socialCallsData}
