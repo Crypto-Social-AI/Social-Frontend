@@ -39,7 +39,7 @@ function Table({
   const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
 
   return (
-    <div>
+    <>
       <div
         onScroll={handleScroll}
         className={clsx('mx-auto w-full overflow-x-auto rounded-md', className, {
@@ -71,7 +71,7 @@ function Table({
         </table>
         <>
           {!loading && !hasData && (
-            <div className='flex justify-center items-center h-full'>
+            <div className='flex justify-center items-center h-screen max-h-[677.5px] px-6'>
               <span className='text-3xl text-text-primary'>No records found.</span>
             </div>
           )}
@@ -82,7 +82,7 @@ function Table({
           {uncommonToken?.symbol} (showing last {displayedData?.length} of {dataSrc?.length})
         </span>
       )}
-    </div>
+    </>
   );
 }
 
