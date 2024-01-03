@@ -20,7 +20,6 @@ type TableProps = CommonTableProps & {
 
 function Table({
   loading,
-  error,
   className,
   displayedData,
   clickableRows,
@@ -39,8 +38,6 @@ function Table({
 }: TableProps) {
   const hasData = dataSrc && dataSrc.length > 0;
   const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
-
-  console.log({ error });
 
   return (
     <>
