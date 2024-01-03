@@ -23,7 +23,7 @@ export default function SocialAccounts() {
   }, [address]);
 
   return (
-    <Container className='mt-12 px-12'>
+    <Container className='px-12'>
       <SocialAccountsTable socialAccounts={socialAccounts} loading={loading} />
     </Container>
   );

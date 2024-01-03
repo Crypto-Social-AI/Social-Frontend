@@ -7,11 +7,11 @@ export default function Root() {
   const address = useAddress();
 
   return (
-    <Container>
+    <Container className='px-12'>
       {address ? (
         <SocialCalls />
       ) : (
-        <div className='flex flex-col gap-6 justify-center items-center mt-12 mx-8 border border-yellow-400 rounded-xl py-6 px-4 bg-gradient-to-tr from-yellow-400 via-black to-black'>
+        <div className='flex flex-col gap-6 justify-center items-center mx-8 border border-yellow-400 rounded-xl py-6 px-4 bg-gradient-to-tr from-yellow-400 via-black to-black'>
           <>
             <div className='rounded-full w-16 h-16 bg-yellow-600 flex justify-center items-center'>
               <FaWallet size={24} />
