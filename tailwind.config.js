@@ -29,6 +29,8 @@ module.exports = {
       },
       height: {
         'error-page-height': 'calc(100vh - 7.1rem)',
+        'error-or-empty-table-height': 'calc(100vh - 212.5px)',
+        'no-records-container': 'calc(100vh - 266px)',
       },
     },
   },
