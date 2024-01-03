@@ -11,7 +11,7 @@ type SocialAccountsTableProps = {
 export default function SocialAccountsTable({ socialAccounts, loading }: SocialAccountsTableProps) {
   return (
     <Table
-      className='max-h-[733px]'
+      className='h-error-or-empty-table-height'
       loading={loading}
       dataSrc={socialAccounts}
       displayedData={socialAccounts}
