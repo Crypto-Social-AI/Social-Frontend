@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { type SocialAccountWithPost, AccountWithPostsSchema } from '../../types';
+import createErrorMessage from '../notifications/createErrorMessage';
 
 export async function getSocialAccounts(): Promise<SocialAccountWithPost[]> {
   const url = 'http://localhost:4000/socialAccount';
@@ -23,6 +24,7 @@ export async function getSocialAccounts(): Promise<SocialAccountWithPost[]> {
     return validatedSocialAccounts.data;
   } catch (error) {
     console.error('getSocialAccounts', { error });
+    createErrorMessage('Something went wrong fetching the data');
     return [];
   }
 }
