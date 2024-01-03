@@ -8,17 +8,16 @@ export default function SocialCalls() {
   const address = useAddress();
   const [socialCalls, setSocialCalls] = useState<SocialPosts | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (address) {
       setLoading(true);
       getSocialCalls()
         .then((data) => setSocialCalls(data))
-        .catch((error) => setError(error))
+        .catch((error) => console.error({ error }))
         .finally(() => setLoading(false));
     }
   }, [address]);
 
-  return <SocialCallsTable socialCalls={socialCalls} loading={loading} error={error} />;
+  return <SocialCallsTable socialCalls={socialCalls} loading={loading} />;
 }

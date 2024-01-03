@@ -6,10 +6,9 @@ import ExpandedContent from './ExpandedContent/ExpandedContent';
 type SocialCallsTableProps = {
   socialCalls: SocialPosts | null;
   loading: boolean;
-  error?: Error | null;
 };
 
-export default function SocialCallsTable({ socialCalls, loading, error }: SocialCallsTableProps) {
+export default function SocialCallsTable({ socialCalls, loading }: SocialCallsTableProps) {
   return (
     <Table
       className='h-error-or-empty-table-height'
@@ -18,7 +17,6 @@ export default function SocialCallsTable({ socialCalls, loading, error }: Social
       renderedRecords={socialCallsData}
       loading={loading}
       idProp='id'
-      error={error}
       isExpandable
       renderExpandedContent={(record) => <ExpandedContent record={record} />}
     />
