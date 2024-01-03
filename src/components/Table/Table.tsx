@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import { type CommonTableProps, type SortConfig } from '../../lib/types';
+import EmptyRecordsBox from './EmptyRecordsBox';
 
 type TableProps = CommonTableProps & {
   loading?: boolean;
@@ -19,6 +20,7 @@ type TableProps = CommonTableProps & {
 
 function Table({
   loading,
+  error,
   className,
   displayedData,
   clickableRows,
@@ -37,6 +39,8 @@ function Table({
 }: TableProps) {
   const hasData = dataSrc && dataSrc.length > 0;
   const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
+
+  console.log({ error });
 
   return (
     <>
@@ -69,13 +73,7 @@ function Table({
             renderExpandedContent={renderExpandedContent}
           />
         </table>
-        <>
-          {!loading && !hasData && (
-            <div className='flex justify-center items-center h-screen max-h-[677.5px] px-6'>
-              <span className='text-3xl text-text-primary'>No records found.</span>
-            </div>
-          )}
-        </>
+        {!loading && !hasData && <EmptyRecordsBox />}
       </div>
       {showTotalRecordsInfo && (
         <span className='text-2xl flex justify-end mt-2 px-6 py-4'>
