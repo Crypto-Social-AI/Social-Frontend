@@ -26,8 +26,8 @@ function TableHeader({ records, handleSortClick, sortConfig, uncommonTokenSymbol
   }
 
   return (
-    <thead className='text-text-primary sticky top-0 z-[1]'>
-      <tr className='bg-background'>
+    <thead className='text-text-primary sticky top-0 z-[1] border-b border-secondary'>
+      <tr className='bg-primary'>
         {isExpandable && <th className=''> </th>}
         {records.map((record: any) => {
           const columnId = record.sortKey ?? record?.id;
@@ -51,7 +51,9 @@ function TableHeader({ records, handleSortClick, sortConfig, uncommonTokenSymbol
                 <div
                   className={`flex gap-1 items-center ${record?.showSort || record?.sortKey ? 'cursor-pointer' : ''}`}
                 >
-                  {typeof record.header === 'function' ? record.header() : record.header}
+                  <span className='text-2xl'>
+                    {typeof record.header === 'function' ? record.header() : record.header}
+                  </span>
                   {record?.showSort || (record?.sortKey && <span>{sortIcon}</span>)}
 
                   {/* {record.tooltipText && (
