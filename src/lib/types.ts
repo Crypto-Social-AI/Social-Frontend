@@ -1,5 +1,10 @@
 import { type z } from 'zod';
-import { type AccountWithPostsSchema, type PostSchema, type PostsResponseSchema } from './schemas';
+import {
+  type AccountsResponseSchema,
+  type AccountWithPostsSchema,
+  type PostSchema,
+  type PostsResponseSchema,
+} from './schemas';
 
 export type SocialPost = z.infer<typeof PostSchema>;
 export type SocialPosts = SocialPost[];
@@ -31,3 +36,4 @@ export type SortConfig = {
 };
 
 export type SocialAccountWithPost = z.infer<typeof AccountWithPostsSchema>;
+export type SocialAccountsResponse = z.infer<typeof AccountsResponseSchema>;
