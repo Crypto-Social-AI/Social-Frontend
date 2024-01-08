@@ -1,5 +1,4 @@
-import { z } from 'zod';
-import { type SocialPosts, PostSchema } from '../../types';
+import { type SocialPosts, PostsResponseSchema } from '../../types';
 import createErrorMessage from '../notifications/createErrorMessage';
 
 export async function getSocialCalls(): Promise<SocialPosts> {
@@ -11,17 +10,15 @@ export async function getSocialCalls(): Promise<SocialPosts> {
       throw new Error('Failed to fetch');
     }
 
-    const PostsArraySchema = z.array(PostSchema);
     const data = await res.json();
-    const socialPosts = data.socialPosts;
-    const validatedSocialPosts = PostsArraySchema.safeParse(socialPosts);
+    const validatedResponse = PostsResponseSchema.safeParse(data);
 
-    if (!validatedSocialPosts.success) {
-      console.error(validatedSocialPosts.error);
+    if (!validatedResponse.success) {
+      console.error(validatedResponse.error);
       return [];
     }
 
-    return validatedSocialPosts.data;
+    return validatedResponse.data.socialPosts.results;
   } catch (error) {
     console.error('getSocialCalls', { error });
     createErrorMessage('Something went wrong fetching the data');
