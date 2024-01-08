@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { type SocialAccountWithPost, AccountWithPostsSchema } from '../../types';
+import { AccountWithPostsSchema } from 'lib/schemas';
+import { type SocialAccountWithPost } from 'lib/types';
 import createErrorMessage from '../notifications/createErrorMessage';
 
 export async function getSocialAccounts(): Promise<SocialAccountWithPost[]> {
