@@ -7,7 +7,7 @@ export default function ConnectWalletBox() {
     <div className='flex justify-between items-center border-b border-b-slate-800 py-4 px-8'>
       <Link to='/'>
         <div className='w-20 h-20'>
-          <img className='rounded-full' src={appLogo} alt='Super Saiyan Bot' />
+          <img className='rounded-full' src={appLogo} alt='HypeHunter' />
         </div>
       </Link>
       <ConnectWallet />
