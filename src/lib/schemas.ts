@@ -46,7 +46,7 @@ export const PaginationInfoSchema = z.object({
 });
 
 export const SocialPostsSchema = z.object({
-  next: PaginationInfoSchema,
+  next: PaginationInfoSchema.optional(),
   results: z.array(PostSchema),
 });
 
@@ -67,4 +67,11 @@ export const AccountWithPostsSchema = z.object({
   isTelegram: z.boolean().default(false),
   isDiscord: z.boolean().default(false),
   posts: PostSchema.array(),
+});
+
+export const AccountsResponseSchema = z.object({
+  message: z.string(),
+  currentPage: z.number(),
+  totalPages: z.number(),
+  socialAccounts: z.array(AccountWithPostsSchema),
 });
