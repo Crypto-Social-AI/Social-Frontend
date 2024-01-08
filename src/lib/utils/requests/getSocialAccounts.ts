@@ -1,10 +1,9 @@
-import { z } from 'zod';
-import { AccountWithPostsSchema } from 'lib/schemas';
-import { type SocialAccountWithPost } from 'lib/types';
+import { AccountsResponseSchema } from 'lib/schemas';
+import { type SocialAccountsResponse } from 'lib/types';
 import createErrorMessage from '../notifications/createErrorMessage';
 
-export async function getSocialAccounts(): Promise<SocialAccountWithPost[]> {
-  const url = 'http://localhost:4000/socialAccount';
+export async function getSocialAccounts(page: number = 1): Promise<SocialAccountsResponse> {
+  const url = `http://localhost:4000/socialAccount?page=${page}`;
 
   try {
     const res = await fetch(url);
@@ -12,20 +11,32 @@ export async function getSocialAccounts(): Promise<SocialAccountWithPost[]> {
       throw new Error('Failed to fetch');
     }
 
-    const AccountsWithPostsArraySchema = z.array(AccountWithPostsSchema);
     const data = await res.json();
-    const socialAccounts = data.socialAccounts;
-    const validatedSocialAccounts = AccountsWithPostsArraySchema.safeParse(socialAccounts);
+    const validatedResponse = AccountsResponseSchema.safeParse(data);
 
-    if (!validatedSocialAccounts.success) {
-      console.error(validatedSocialAccounts.error);
-      return [];
+    if (!validatedResponse.success) {
+      console.error(validatedResponse.error);
+      createErrorMessage('Something went wrong while validating the data');
+      // Return an object with default values if validation fails
+      return {
+        message: 'Validation failed',
+        socialAccounts: [],
+        totalPages: 0,
+        currentPage: 0,
+      };
     }
 
-    return validatedSocialAccounts.data;
+    // Return the validated data
+    return validatedResponse.data;
   } catch (error) {
     console.error('getSocialAccounts', { error });
     createErrorMessage('Something went wrong fetching the data');
-    return [];
+    // Return an object with default values in case of an error
+    return {
+      message: 'Error fetching data',
+      socialAccounts: [],
+      totalPages: 0,
+      currentPage: 0,
+    };
   }
 }
