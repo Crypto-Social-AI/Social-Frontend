@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import clsx from 'clsx';
+import { type CommonTableProps, type SortConfig } from 'lib/types';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
-import { type CommonTableProps, type SortConfig } from '../../lib/types';
 import EmptyRecordsBox from './EmptyRecordsBox';
 
 type TableProps = CommonTableProps & {
