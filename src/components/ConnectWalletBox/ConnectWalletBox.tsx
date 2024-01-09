@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ConnectWallet } from '@thirdweb-dev/react';
-import appLogo from 'assets/images/super-saiyan-bot-logo.png';
+import appLogo from 'assets/images/hype-hunter.png';
 
 export default function ConnectWalletBox() {
   return (
