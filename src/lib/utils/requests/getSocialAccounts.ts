@@ -1,9 +1,13 @@
 import { AccountsResponseSchema } from 'lib/schemas';
 import { type SocialAccountsResponse } from 'lib/types';
 import createErrorMessage from '../notifications/createErrorMessage';
+import { TABLE_RECORDS_PER_PAGE_LIMIT } from '../constants/general';
 
-export async function getSocialAccounts(page: number = 1): Promise<SocialAccountsResponse> {
-  const url = `http://localhost:4000/socialAccount?page=${page}`;
+export async function getSocialAccounts(
+  page: number = 1,
+  limit: number = TABLE_RECORDS_PER_PAGE_LIMIT,
+): Promise<SocialAccountsResponse> {
+  const url = `http://localhost:4000/socialAccount?page=${page}&limit=${limit}`;
 
   try {
     const res = await fetch(url);
