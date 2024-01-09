@@ -6,6 +6,7 @@ import SocialCallsTable from 'components/SocialCallsTable/SocialCallsTable';
 import PaginationControls from 'components/PaginationControls/PaginationControls';
 import { TABLE_RECORDS_PER_PAGE_LIMIT } from 'lib/utils/constants/general';
 
+// TODO: Add custom hook or HOC to keep code DRY (SocialCalls and SocialAccounts virtually the same code)
 export default function SocialCalls() {
   const address = useAddress();
   const [socialCalls, setSocialCalls] = useState<SocialPosts | null>(null);
