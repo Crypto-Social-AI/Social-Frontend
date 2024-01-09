@@ -42,7 +42,7 @@ export default function PaginationControls({
           <span>Items per page</span>
           <div className='relative inline-block'>
             <select
-              className='block appearance-none w-full bg-black text-white py-2 pl-4 pr-6 rounded leading-tight focus:outline-none focus:border-blue-500 border border-gray-400'
+              className='block appearance-none w-full bg-black text-white py-2 pl-4 pr-6 rounded leading-tight focus:outline-none focus:border-blue-500 border border-gray-400 cursor-pointer'
               name='limitPerPage'
               id='limitPerPage'
               onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
