@@ -35,5 +35,7 @@ export type SortConfig = {
   direction: 'asc' | 'desc';
 };
 
-export type SocialAccountWithPost = z.infer<typeof AccountWithPostsSchema>;
+export type SocialAccountWithPost = z.infer<typeof AccountWithPostsSchema> & {
+  [key: string]: any;
+};
 export type SocialAccountsResponse = z.infer<typeof AccountsResponseSchema>;
