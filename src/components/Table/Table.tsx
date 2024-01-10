@@ -11,7 +11,7 @@ type TableProps = CommonTableProps & {
   handleSortClick?: (sortKey: string) => any;
   showHeader?: boolean;
   displayedData: any;
-  sortConfig?: SortConfig;
+  sortConfig?: SortConfig | null;
   showTotalRecordsInfo?: boolean;
   uncommonToken?: any;
   dataSrc: any;
