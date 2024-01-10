@@ -5,11 +5,15 @@ export default [
   {
     id: 'username',
     header: 'Username',
+    sortable: true,
+    sortKey: 'username',
     render: (record: SocialAccountWithPost) => <span>@{record?.username}</span>,
   },
   {
     id: 'socialInfo',
     header: 'Social channel',
+    sortable: true,
+    sortKey: 'channelName',
     render: (record: SocialAccountWithPost) => (
       <div className='flex gap-1'>
         <img src={telegramIcon} alt='Telegram' />
@@ -22,6 +26,8 @@ export default [
   {
     id: 'postsCount',
     header: 'Posts',
+    sortable: true,
+    sortKey: 'posts',
     render: (record: SocialAccountWithPost) => <span>{record?.posts?.length}</span>,
   },
 ];
