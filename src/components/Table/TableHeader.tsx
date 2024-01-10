@@ -1,20 +1,17 @@
 import { type SortConfig } from 'lib/types';
 import { HiChevronDown, HiChevronUp, HiChevronUpDown } from 'react-icons/hi2';
 // import { AiOutlineInfoCircle } from 'react-icons/ai';
-// import useTranslate from 'translate/useTranslate';
 // import Tooltip from 'components/Tooltip/Tooltip';
 
 type TableHeaderProps = {
   records: any;
   handleSortClick?: (sortKey: string) => any;
-  sortConfig?: SortConfig;
+  sortConfig?: SortConfig | null;
   uncommonTokenSymbol: string;
   isExpandable: boolean;
 };
 
 function TableHeader({ records, handleSortClick, sortConfig, uncommonTokenSymbol, isExpandable }: TableHeaderProps) {
-  // const trans = useTranslate();
-
   function getSortIcon(columnId: string, config: SortConfig) {
     if (config !== undefined && config.key === columnId) {
       if (config.direction === 'asc') {
@@ -38,10 +35,10 @@ function TableHeader({ records, handleSortClick, sortConfig, uncommonTokenSymbol
               key={record.id}
               className={`${record?.headerClassName} p-6`}
               onClick={
-                record?.sortKey ?? record?.showSort
+                record.sortable
                   ? () => {
                       if (handleSortClick) {
-                        handleSortClick(record.sortKey ?? record.id);
+                        handleSortClick(columnId);
                       }
                     }
                   : undefined
