@@ -32,6 +32,7 @@
         "@typescript-eslint/consistent-type-definitions": 0,
         "@typescript-eslint/strict-boolean-expressions": 0,
         "@typescript-eslint/no-confusing-void-expression": 0,
+        "@typescript-eslint/consistent-indexed-object-style": 0,
         "@typescript-eslint/no-unused-vars": 1,
         "no-debugger": 1
     }
