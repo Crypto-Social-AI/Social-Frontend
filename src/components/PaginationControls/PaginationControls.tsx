@@ -17,8 +17,8 @@ export default function PaginationControls({
   showItemsPerPage = true,
 }: PaginationControlsProps) {
   return (
-    <div className='flex justify-between items-center'>
-      <div className='my-8 flex items-center gap-1 border border-primary rounded-xl w-fit'>
+    <div className='mt-6 flex flex-row-reverse justify-between items-center'>
+      <div className='flex items-center gap-1 border border-primary rounded-xl w-fit'>
         <button
           className='flex items-center border-r border-primary hover:bg-secondary transition-all duration-150 rounded-l-xl'
           disabled={currentPage <= 1}
@@ -39,10 +39,10 @@ export default function PaginationControls({
       </div>
       {showItemsPerPage ? (
         <div className='flex items-center gap-3'>
-          <span>Items per page</span>
+          <span className='text-xl'>Items per page</span>
           <div className='relative inline-block'>
             <select
-              className='block appearance-none w-full bg-black text-white py-2 pl-4 pr-6 rounded leading-tight focus:outline-none focus:border-blue-500 border border-gray-400 cursor-pointer'
+              className='block appearance-none bg-background w-full text-white py-2 pl-4 pr-8 rounded leading-tight focus:outline-none focus:border-blue-500 border border-primary cursor-pointer'
               name='limitPerPage'
               id='limitPerPage'
               onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
