@@ -6,8 +6,8 @@ import ExpandedContent from './ExpandedContent';
 type SocialAccountsTableProps = {
   socialAccounts: SocialAccountWithPost[] | null;
   loading: boolean;
-  sortConfig: SortConfig | null;
-  onHandleSortChange: (key: string) => void;
+  sortConfig: SortConfig<keyof SocialAccountWithPost> | null;
+  onHandleSortChange: (key: keyof SocialAccountWithPost) => void;
 };
 
 export default function SocialAccountsTable({
