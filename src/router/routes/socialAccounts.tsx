@@ -14,12 +14,12 @@ export default function SocialAccounts() {
   const [socialAccounts, setSocialAccounts] = useState<SocialAccountWithPost[] | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
+  const [sortConfig, setSortConfig] = useState<SortConfig<keyof SocialAccountWithPost> | null>(null);
   const [itemsPerPage, setItemsPerPage] = useState(TABLE_RECORDS_PER_PAGE_LIMIT);
   const [loading, setLoading] = useState(false);
 
-  const handleSortChange = (key: string) => {
-    setSortConfig((currentSortConfig): SortConfig | null => {
+  const handleSortChange = (key: keyof SocialAccountWithPost) => {
+    setSortConfig((currentSortConfig): SortConfig<keyof SocialAccountWithPost> | null => {
       if (currentSortConfig && currentSortConfig.key === key) {
         return {
           key,
@@ -30,7 +30,14 @@ export default function SocialAccounts() {
     });
   };
 
-  const sortedData = sortData(socialAccounts, sortConfig);
+  const socialAccountsWithPostsCount = socialAccounts?.map((account) => ({
+    ...account,
+    postCount: account?.posts?.length || 0,
+  }));
+  const sortedData = sortData<SocialAccountWithPost, keyof SocialAccountWithPost>(
+    socialAccountsWithPostsCount ?? [],
+    sortConfig,
+  );
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -63,8 +70,6 @@ export default function SocialAccounts() {
 
     fetchDataAsync().catch(console.error);
   }, [address, currentPage, itemsPerPage]);
-
-  console.log({ sortConfig, sortedData });
 
   return (
     <Container className='px-12'>
