@@ -24,10 +24,10 @@ export default [
     ),
   },
   {
-    id: 'postsCount',
+    id: 'postCount',
     header: 'Posts',
     sortable: true,
-    sortKey: 'posts',
+    sortKey: 'postCount',
     render: (record: SocialAccountWithPost) => <span>{record?.posts?.length}</span>,
   },
 ];
