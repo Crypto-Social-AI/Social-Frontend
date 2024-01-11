@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useAddress } from '@thirdweb-dev/react';
 import { type SocialCallsResponse, getSocialCalls } from 'lib/utils/requests/getSocialCalls';
-import { type SocialPosts } from 'lib/types';
+import { type SortConfig, type SocialPosts } from 'lib/types';
+import { TABLE_RECORDS_PER_PAGE_LIMIT } from 'lib/utils/constants/general';
+import sortData from 'lib/utils/helpers/sorting/sorting';
 import SocialCallsTable from 'components/SocialCallsTable/SocialCallsTable';
 import PaginationControls from 'components/PaginationControls/PaginationControls';
-import { TABLE_RECORDS_PER_PAGE_LIMIT } from 'lib/utils/constants/general';
 
 // TODO: Add custom hook or HOC to keep code DRY (SocialCalls and SocialAccounts virtually the same code)
 export default function SocialCalls() {
@@ -12,8 +13,23 @@ export default function SocialCalls() {
   const [socialCalls, setSocialCalls] = useState<SocialPosts | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
   const [itemsPerPage, setItemsPerPage] = useState(TABLE_RECORDS_PER_PAGE_LIMIT);
   const [loading, setLoading] = useState(false);
+
+  const handleSortChange = (key: string) => {
+    setSortConfig((currentSortConfig): SortConfig | null => {
+      if (currentSortConfig && currentSortConfig.key === key) {
+        return {
+          key,
+          direction: currentSortConfig.direction === 'asc' ? 'desc' : 'asc',
+        };
+      }
+      return { key, direction: 'asc' };
+    });
+  };
+
+  const sortedData = sortData(socialCalls, sortConfig);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);

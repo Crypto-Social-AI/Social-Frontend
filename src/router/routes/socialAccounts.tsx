@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { useAddress } from '@thirdweb-dev/react';
 import Container from 'components/Container/Container';
 import SocialAccountsTable from 'components/SocialAccountsTable/SocialAccountsTable';
+import PaginationControls from 'components/PaginationControls/PaginationControls';
 import { type SortConfig, type SocialAccountWithPost } from 'lib/types';
 import { getSocialAccounts } from 'lib/utils/requests/getSocialAccounts';
-import PaginationControls from 'components/PaginationControls/PaginationControls';
 import { TABLE_RECORDS_PER_PAGE_LIMIT } from 'lib/utils/constants/general';
+import sortData from 'lib/utils/helpers/sorting/sorting';
 
 // TODO: Add custom hook or HOC to keep code DRY (SocialCalls and SocialAccounts virtually the same code)
 export default function SocialAccounts() {
@@ -29,29 +30,7 @@ export default function SocialAccounts() {
     });
   };
 
-  const sortData = (data: SocialAccountWithPost[] | null) => {
-    if (!sortConfig) return data;
-    if (!data) return null;
-
-    return [...data].sort((a, b) => {
-      const keyA = a[sortConfig.key as keyof SocialAccountWithPost];
-      const keyB = b[sortConfig.key as keyof SocialAccountWithPost];
-
-      // Check if the values are numbers
-      if (typeof keyA === 'number' && typeof keyB === 'number') {
-        // Sort numbers directly
-        return (keyA - keyB) * (sortConfig.direction === 'asc' ? 1 : -1);
-      } else {
-        // Use localeCompare for strings (case-insensitive)
-        return (
-          keyA.toString().localeCompare(keyB.toString(), 'en', { sensitivity: 'base' }) *
-          (sortConfig.direction === 'asc' ? 1 : -1)
-        );
-      }
-    });
-  };
-
-  const sortedData = sortData(socialAccounts);
+  const sortedData = sortData(socialAccounts, sortConfig);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
