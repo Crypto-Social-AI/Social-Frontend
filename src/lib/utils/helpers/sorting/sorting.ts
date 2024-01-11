@@ -1,23 +1,24 @@
-import { type SortConfig, type SocialAccountWithPost } from 'lib/types';
+import { type SortConfig } from 'lib/types';
 
-export default function sortData(data: SocialAccountWithPost[] | null, sortConfig: SortConfig | null) {
-  if (!sortConfig) return data;
-  if (!data) return null;
+// Generic sortData function
+export default function sortData<T, K extends keyof T>(data: T[] | null, sortConfig: SortConfig<K> | null): T[] | null {
+  if (!sortConfig || !data) return data;
 
-  return [...data].sort((a, b) => {
-    const keyA = a[sortConfig.key as keyof SocialAccountWithPost];
-    const keyB = b[sortConfig.key as keyof SocialAccountWithPost];
+  return [...data].sort((a: T, b: T) => {
+    const key = sortConfig.key;
+    const keyA = a[key];
+    const keyB = b[key];
 
-    // Check if the values are numbers
+    // We need to check if both keyA and keyB are either numbers or strings
     if (typeof keyA === 'number' && typeof keyB === 'number') {
-      // Sort numbers directly
-      return (keyA - keyB) * (sortConfig.direction === 'asc' ? 1 : -1);
+      return sortConfig.direction === 'asc' ? keyA - keyB : keyB - keyA;
+    } else if (typeof keyA === 'string' && typeof keyB === 'string') {
+      return sortConfig.direction === 'asc'
+        ? keyA.localeCompare(keyB, 'en', { sensitivity: 'base' })
+        : keyB.localeCompare(keyA, 'en', { sensitivity: 'base' });
     } else {
-      // Use localeCompare for strings (case-insensitive)
-      return (
-        keyA.toString().localeCompare(keyB.toString(), 'en', { sensitivity: 'base' }) *
-        (sortConfig.direction === 'asc' ? 1 : -1)
-      );
+      // If values are neither numbers nor strings, or they are not of the same type, we don't sort them
+      return 0;
     }
   });
 }
