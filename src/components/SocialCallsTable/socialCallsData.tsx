@@ -2,11 +2,6 @@ import { type SocialPost } from 'lib/types';
 import TokenSymbolAndName from '../TokenSymbolAndName/TokenSymbolAndName';
 import NumberFormat from 'components/NumberFormat.tsx/NumberFormat';
 import Tooltip from 'components/Tooltip/Tooltip';
-import {
-  getCurrentProfitPercentage,
-  getMaxProfitPercentage,
-  getProfitForTimeRange,
-} from 'lib/utils/helpers/calculations/calculateProfit';
 import { truncateString } from 'lib/utils/helpers/format/format';
 
 type GetSocialMediaSourceProps = {
@@ -40,6 +35,8 @@ export default [
   {
     id: 'channel',
     header: 'Channel',
+    sortable: true,
+    sortKey: 'channelName',
     render: (record: SocialPost) => {
       const socialMedia = getSocialMediaSource(record);
 
@@ -63,15 +60,17 @@ export default [
   {
     id: 'currentProfitLoss',
     header: 'Curr',
+    sortable: true,
+    sortKey: 'currentProfitLoss',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const profit = getCurrentProfitPercentage(record);
-      const bgColor = profit !== null && profit < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
-      const textColor = profit !== null && profit < 0 ? 'redArb' : 'greenArb';
+      const currentProfitLoss = record.currentProfitLoss;
+      const bgColor = currentProfitLoss !== null && currentProfitLoss < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
+      const textColor = currentProfitLoss !== null && currentProfitLoss < 0 ? 'redArb' : 'greenArb';
 
       return (
         <div className={`${bgColor} px-4 py-1 rounded-lg w-fit`}>
-          <NumberFormat value={profit} color={textColor} decimals={2} isPercentage />
+          <NumberFormat value={currentProfitLoss} color={textColor} decimals={2} isPercentage />
         </div>
       );
     },
@@ -79,16 +78,18 @@ export default [
   {
     id: 'maxProfitLoss',
     header: 'Max',
+    sortable: true,
+    sortKey: 'maxProfitLoss',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const profit = getMaxProfitPercentage(record);
-      const bgColor = profit && profit < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
-      const textColor = profit && profit < 0 ? 'redArb' : 'greenArb';
+      const maxProfitLoss = record.maxProfitLoss;
+      const bgColor = maxProfitLoss && maxProfitLoss < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
+      const textColor = maxProfitLoss && maxProfitLoss < 0 ? 'redArb' : 'greenArb';
 
       return (
         <div className={`${bgColor} px-4 py-1 rounded-lg w-fit flex items-center gap-1`}>
-          {profit && profit >= 10000 ? <span className='text-[#047857]'>&#62;</span> : null}
-          <NumberFormat value={profit} color={textColor} decimals={2} isPercentage />
+          {maxProfitLoss && maxProfitLoss >= 10000 ? <span className='text-[#047857]'>&#62;</span> : null}
+          <NumberFormat value={maxProfitLoss} color={textColor} decimals={2} isPercentage />
         </div>
       );
     },
@@ -96,9 +97,11 @@ export default [
   {
     id: '1h',
     header: '1H',
+    sortable: true,
+    sortKey: 'profitForOneHour',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const profitForOneHour = getProfitForTimeRange(record, 'priceInComommonTokenOneHourLater');
+      const profitForOneHour = record.profitForOneHour;
       const bgColor = profitForOneHour && profitForOneHour < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = profitForOneHour && profitForOneHour < 0 ? 'redArb' : 'greenArb';
 
@@ -112,9 +115,11 @@ export default [
   {
     id: '8h',
     header: '8H',
+    sortable: true,
+    sortKey: 'profitForEightHours',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const profitForEightHours = getProfitForTimeRange(record, 'priceInComommonTokenEightHoursLater');
+      const profitForEightHours = record.profitForEightHours;
       const bgColor = profitForEightHours && profitForEightHours < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = profitForEightHours && profitForEightHours < 0 ? 'redArb' : 'greenArb';
 
@@ -128,9 +133,11 @@ export default [
   {
     id: '1d',
     header: '1D',
+    sortable: true,
+    sortKey: 'profitForOneDayHour',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const profitForOneDayHour = getProfitForTimeRange(record, 'priceInComommonTokenOneDayLater');
+      const profitForOneDayHour = record.profitForOneDayHour;
       const bgColor = profitForOneDayHour && profitForOneDayHour < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = profitForOneDayHour && profitForOneDayHour < 0 ? 'redArb' : 'greenArb';
 
@@ -144,9 +151,11 @@ export default [
   {
     id: '7d',
     header: '7D',
+    sortable: true,
+    sortKey: 'profitForSevenDays',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const profitForSevenDays = getProfitForTimeRange(record, 'priceInComommonTokenOneWeekLater');
+      const profitForSevenDays = record.profitForSevenDays;
       const bgColor = profitForSevenDays && profitForSevenDays < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = profitForSevenDays && profitForSevenDays < 0 ? 'redArb' : 'greenArb';
 
