@@ -6,7 +6,9 @@ import {
   type PostsResponseSchema,
 } from './schemas';
 
-export type SocialPost = z.infer<typeof PostSchema>;
+export type SocialPost = z.infer<typeof PostSchema> & {
+  [key: string]: any;
+};
 export type SocialPosts = SocialPost[];
 export type SocialPostsResponse = z.infer<typeof PostsResponseSchema>;
 
@@ -30,8 +32,8 @@ export type CommonTableProps = {
   renderExpandedContent?: (record: any) => JSX.Element;
 };
 
-export type SortConfig = {
-  key: string;
+export type SortConfig<K extends keyof any> = {
+  key: K;
   direction: 'asc' | 'desc';
 };
 
