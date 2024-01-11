@@ -22,7 +22,7 @@ export default function SocialAccounts() {
       if (currentSortConfig && currentSortConfig.key === key) {
         return {
           key,
-          direction: currentSortConfig.key === 'asc' ? 'desc' : 'asc',
+          direction: currentSortConfig.direction === 'asc' ? 'desc' : 'asc',
         };
       }
       return { key, direction: 'asc' };
@@ -36,9 +36,18 @@ export default function SocialAccounts() {
     return [...data].sort((a, b) => {
       const keyA = a[sortConfig.key as keyof SocialAccountWithPost];
       const keyB = b[sortConfig.key as keyof SocialAccountWithPost];
-      if (keyA < keyB) return sortConfig.direction === 'asc' ? -1 : 1;
-      if (keyA > keyB) return sortConfig.direction === 'asc' ? 1 : -1;
-      return 0;
+
+      // Check if the values are numbers
+      if (typeof keyA === 'number' && typeof keyB === 'number') {
+        // Sort numbers directly
+        return (keyA - keyB) * (sortConfig.direction === 'asc' ? 1 : -1);
+      } else {
+        // Use localeCompare for strings (case-insensitive)
+        return (
+          keyA.toString().localeCompare(keyB.toString(), 'en', { sensitivity: 'base' }) *
+          (sortConfig.direction === 'asc' ? 1 : -1)
+        );
+      }
     });
   };
 
@@ -75,6 +84,8 @@ export default function SocialAccounts() {
 
     fetchDataAsync().catch(console.error);
   }, [address, currentPage, itemsPerPage]);
+
+  console.log({ sortConfig, sortedData });
 
   return (
     <Container className='px-12'>
