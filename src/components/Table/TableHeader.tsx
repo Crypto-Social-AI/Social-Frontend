@@ -3,16 +3,22 @@ import { HiChevronDown, HiChevronUp, HiChevronUpDown } from 'react-icons/hi2';
 // import { AiOutlineInfoCircle } from 'react-icons/ai';
 // import Tooltip from 'components/Tooltip/Tooltip';
 
-type TableHeaderProps = {
+type TableHeaderProps<K extends keyof any> = {
   records: any;
   handleSortClick?: (sortKey: string) => any;
-  sortConfig?: SortConfig | null;
+  sortConfig?: SortConfig<K> | null;
   uncommonTokenSymbol: string;
   isExpandable: boolean;
 };
 
-function TableHeader({ records, handleSortClick, sortConfig, uncommonTokenSymbol, isExpandable }: TableHeaderProps) {
-  function getSortIcon(columnId: string, config: SortConfig) {
+function TableHeader<K extends keyof any>({
+  records,
+  handleSortClick,
+  sortConfig,
+  uncommonTokenSymbol,
+  isExpandable,
+}: TableHeaderProps<K>) {
+  function getSortIcon(columnId: string, config: SortConfig<K>) {
     if (config !== undefined && config.key === columnId) {
       if (config.direction === 'asc') {
         return <HiChevronDown />;

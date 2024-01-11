@@ -5,20 +5,20 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import EmptyRecordsBox from './EmptyRecordsBox';
 
-type TableProps = CommonTableProps & {
+type TableProps<K extends keyof any> = CommonTableProps & {
   loading?: boolean;
   className?: string;
   handleSortClick?: (sortKey: string) => any;
   showHeader?: boolean;
   displayedData: any;
-  sortConfig?: SortConfig | null;
+  sortConfig?: SortConfig<K> | null;
   showTotalRecordsInfo?: boolean;
   uncommonToken?: any;
   dataSrc: any;
   handleScroll?: (e: React.UIEvent<HTMLElement>) => void;
 };
 
-function Table({
+function Table<K extends keyof any>({
   loading,
   className,
   displayedData,
@@ -35,7 +35,7 @@ function Table({
   handleScroll = () => {},
   idProp = '_id',
   isExpandable = false,
-}: TableProps) {
+}: TableProps<K>) {
   const hasData = dataSrc && dataSrc.length > 0;
   const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
 
