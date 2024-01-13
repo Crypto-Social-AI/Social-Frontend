@@ -19,8 +19,8 @@ function TableHeader<K extends keyof any>({
   isExpandable,
 }: TableHeaderProps<K>) {
   function getSortIcon(columnId: string, config: SortConfig<K>) {
-    if (config !== undefined && config.key === columnId) {
-      if (config.direction === 'asc') {
+    if (config !== undefined && config?.key === columnId) {
+      if (config?.direction === 'asc') {
         return <HiChevronDown />;
       }
       return <HiChevronUp />;
