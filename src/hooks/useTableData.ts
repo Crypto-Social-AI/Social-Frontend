@@ -3,12 +3,17 @@ import { type SortConfig } from 'lib/types';
 import { TABLE_RECORDS_PER_PAGE_LIMIT } from 'lib/utils/constants/general';
 import { useState, useEffect } from 'react';
 
-type FetchFunction<T> = (page: number, limit: number) => Promise<T>;
-type ProcessDataFunction<T, U> = (data: T) => U;
+type FetchResponse<T> = {
+  data: T[];
+  totalPages?: number;
+  currentPage?: number;
+};
+type FetchFunction<T> = (page: number, limit: number) => Promise<FetchResponse<T>>;
+type ProcessDataFunction<T> = (data: T[]) => T[];
 type UseTableDataReturn<T> = {
-  data: T | null;
+  data: T[] | null;
   loading: boolean;
-  sortConfig: SortConfig<keyof T>;
+  sortConfig?: SortConfig<keyof T>;
   currentPage: number;
   totalPages: number;
   handlePageChange: (newPage: number) => void;
@@ -16,29 +21,48 @@ type UseTableDataReturn<T> = {
   handleSortChange: (key: keyof T) => void;
 };
 
-function useTableData<T, U>(
-  fetchFunction: FetchFunction<U>,
-  processData: ProcessDataFunction<U, T[]>,
-  initialSortConfig: SortConfig<keyof T>,
+export default function useTableData<T>(
+  fetchFunction: FetchFunction<T>,
+  processData: ProcessDataFunction<T>,
+  initialSortConfig?: SortConfig<keyof T>,
 ): UseTableDataReturn<T> {
   const address = useAddress();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<T[] | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [sortConfig, setSortConfig] = useState(initialSortConfig);
   const [itemsPerPage, setItemsPerPage] = useState(TABLE_RECORDS_PER_PAGE_LIMIT);
   const [loading, setLoading] = useState(false);
 
-  // Common functions like handlePageChange, handleItemsPerPageChange, handleSortChange...
+  const handleSortChange = (key: keyof T) => {
+    setSortConfig((currentSortConfig): SortConfig<keyof T> => {
+      if (currentSortConfig && currentSortConfig.key === key) {
+        return {
+          key,
+          direction: currentSortConfig.direction === 'asc' ? 'desc' : 'asc',
+        };
+      }
+      return { key, direction: 'asc' };
+    });
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleItemsPerPageChange = (newLimit: number) => {
+    setItemsPerPage(newLimit);
+    setCurrentPage(1);
+  };
 
   const fetchData = async (page: number, limit: number) => {
     if (address) {
       setLoading(true);
       try {
         const response = await fetchFunction(page, limit);
-        const processedData = processData(response);
+        const processedData = processData(response.data);
         setData(processedData);
-        setTotalPages(response.totalPages);
+        setTotalPages(response.totalPages ?? 1);
       } catch (error) {
         console.error({ error });
       } finally {
@@ -48,7 +72,13 @@ function useTableData<T, U>(
   };
 
   useEffect(() => {
-    fetchData(currentPage, itemsPerPage);
+    // This function is defined and called immediately to use async/await in useEffect.
+    const fetchDataAsync = async () => {
+      await fetchData(currentPage, itemsPerPage);
+    };
+
+    // We use `void` to explicitly signal that the floating promise is intentional
+    void fetchDataAsync();
   }, [address, currentPage, itemsPerPage]);
 
   return {
