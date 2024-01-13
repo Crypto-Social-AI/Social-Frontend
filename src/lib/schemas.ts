@@ -40,21 +40,11 @@ export const PostSchema = z.object({
   username: z.string().optional(),
 });
 
-export const PaginationInfoSchema = z.object({
-  page: z.number(),
-  limit: z.number(),
-});
-
-export const SocialPostsSchema = z.object({
-  next: PaginationInfoSchema.optional(),
-  results: z.array(PostSchema),
-});
-
 export const PostsResponseSchema = z.object({
   message: z.string(),
   totalPages: z.number(),
   currentPage: z.number(),
-  socialPosts: SocialPostsSchema,
+  data: z.array(PostSchema),
 });
 
 export const AccountWithPostsSchema = z.object({
@@ -73,5 +63,5 @@ export const AccountsResponseSchema = z.object({
   message: z.string(),
   currentPage: z.number(),
   totalPages: z.number(),
-  socialAccounts: z.array(AccountWithPostsSchema),
+  data: z.array(AccountWithPostsSchema),
 });
