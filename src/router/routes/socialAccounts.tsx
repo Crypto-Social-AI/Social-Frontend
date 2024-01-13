@@ -26,7 +26,7 @@ export default function SocialAccounts() {
         socialAccounts={sortedData}
         loading={loading}
         sortConfig={sortConfig}
-        onHandleSortChange={handleSortChange}
+        handleSortChange={handleSortChange}
       />
       <PaginationControls
         currentPage={currentPage}

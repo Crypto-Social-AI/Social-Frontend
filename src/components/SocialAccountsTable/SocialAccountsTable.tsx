@@ -6,15 +6,15 @@ import ExpandedContent from './ExpandedContent';
 type SocialAccountsTableProps = {
   socialAccounts: SocialAccountWithPost[] | null;
   loading: boolean;
-  sortConfig: SortConfig<keyof SocialAccountWithPost> | null;
-  onHandleSortChange: (key: keyof SocialAccountWithPost) => void;
+  handleSortChange: (key: keyof SocialAccountWithPost) => void;
+  sortConfig?: SortConfig<keyof SocialAccountWithPost> | null;
 };
 
 export default function SocialAccountsTable({
   socialAccounts,
   loading,
   sortConfig,
-  onHandleSortChange,
+  handleSortChange,
 }: SocialAccountsTableProps) {
   return (
     <Table
@@ -24,7 +24,7 @@ export default function SocialAccountsTable({
       displayedData={socialAccounts}
       renderedRecords={socialAccountsData}
       sortConfig={sortConfig}
-      handleSortClick={onHandleSortChange}
+      handleSortClick={handleSortChange}
       idProp='id'
       renderExpandedContent={(record) => <ExpandedContent posts={record.posts} />}
       isExpandable

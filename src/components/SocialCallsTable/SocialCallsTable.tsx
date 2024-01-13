@@ -6,8 +6,8 @@ import ExpandedContent from './ExpandedContent/ExpandedContent';
 type SocialCallsTableProps = {
   socialCalls: SocialPosts | null;
   loading: boolean;
+  sortConfig?: SortConfig<keyof SocialPost> | null;
   handleSortChange: (key: keyof SocialPost) => void;
-  sortConfig: SortConfig<keyof SocialPost> | null;
 };
 
 export default function SocialCallsTable({
