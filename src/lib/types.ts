@@ -1,16 +1,10 @@
 import { type z } from 'zod';
-import {
-  type AccountsResponseSchema,
-  type AccountWithPostsSchema,
-  type PostSchema,
-  type PostsResponseSchema,
-} from './schemas';
+import { type AccountWithPostsSchema, type PostSchema } from './schemas';
 
 export type SocialPost = z.infer<typeof PostSchema> & {
   [key: string]: any;
 };
 export type SocialPosts = SocialPost[];
-export type SocialPostsResponse = z.infer<typeof PostsResponseSchema>;
 
 export type BgColor = 'base' | 'secondary' | 'contrast';
 
@@ -35,9 +29,15 @@ export type CommonTableProps = {
 export type SortConfig<K extends keyof any> = {
   key: K;
   direction: 'asc' | 'desc';
-};
+} | null;
 
 export type SocialAccountWithPost = z.infer<typeof AccountWithPostsSchema> & {
   [key: string]: any;
 };
-export type SocialAccountsResponse = z.infer<typeof AccountsResponseSchema>;
+
+export type GenericResponse<T> = {
+  message?: string;
+  data: T;
+  totalPages: number;
+  currentPage: number;
+};
