@@ -1,7 +1,10 @@
 import { type SortConfig } from 'lib/types';
 
 // Generic sortData function
-export default function sortData<T, K extends keyof T>(data: T[] | null, sortConfig: SortConfig<K> | null): T[] | null {
+export default function sortData<T, K extends keyof T>(
+  data: T[] | null,
+  sortConfig?: SortConfig<K> | null,
+): T[] | null {
   if (!sortConfig || !data) return data;
 
   return [...data].sort((a: T, b: T) => {
