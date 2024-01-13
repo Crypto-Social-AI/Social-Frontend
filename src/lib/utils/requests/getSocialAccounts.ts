@@ -1,12 +1,12 @@
 import { AccountsResponseSchema } from 'lib/schemas';
-import { type SocialAccountsResponse } from 'lib/types';
+import { type SocialAccountWithPost, type GenericResponse } from 'lib/types';
 import createErrorMessage from '../notifications/createErrorMessage';
 import { TABLE_RECORDS_PER_PAGE_LIMIT } from '../constants/general';
 
 export async function getSocialAccounts(
   page: number = 1,
   limit: number = TABLE_RECORDS_PER_PAGE_LIMIT,
-): Promise<SocialAccountsResponse> {
+): Promise<GenericResponse<SocialAccountWithPost[]>> {
   const url = `http://localhost:4000/socialAccount?page=${page}&limit=${limit}`;
 
   try {
@@ -24,7 +24,7 @@ export async function getSocialAccounts(
       // Return an object with default values if validation fails
       return {
         message: 'Validation failed',
-        socialAccounts: [],
+        data: [],
         totalPages: 0,
         currentPage: 0,
       };
@@ -35,12 +35,6 @@ export async function getSocialAccounts(
   } catch (error) {
     console.error('getSocialAccounts', { error });
     createErrorMessage('Something went wrong fetching the data');
-    // Return an object with default values in case of an error
-    return {
-      message: 'Error fetching data',
-      socialAccounts: [],
-      totalPages: 0,
-      currentPage: 0,
-    };
+    throw error;
   }
 }

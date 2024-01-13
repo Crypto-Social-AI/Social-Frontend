@@ -1,18 +1,12 @@
-import { type z } from 'zod';
-import { PostsResponseSchema, type SocialPostsSchema } from 'lib/schemas';
+import { PostsResponseSchema } from 'lib/schemas';
 import createErrorMessage from '../notifications/createErrorMessage';
 import { TABLE_RECORDS_PER_PAGE_LIMIT } from '../constants/general';
-
-export type SocialCallsResponse = {
-  socialPosts: z.infer<typeof SocialPostsSchema>['results'];
-  totalPages: number;
-  currentPage: number;
-};
+import { type GenericResponse, type SocialPosts } from 'lib/types';
 
 export async function getSocialCalls(
   page: number = 1,
   limit: number = TABLE_RECORDS_PER_PAGE_LIMIT,
-): Promise<SocialCallsResponse> {
+): Promise<GenericResponse<SocialPosts>> {
   const url = `http://localhost:4000/socialPost?page=${page}&limit=${limit}`;
 
   try {
@@ -27,17 +21,13 @@ export async function getSocialCalls(
     if (!validatedResponse.success) {
       console.error(validatedResponse.error);
       return {
-        socialPosts: [],
+        data: [],
         totalPages: 0,
         currentPage: 0,
       };
     }
 
-    return {
-      socialPosts: validatedResponse.data.socialPosts.results,
-      totalPages: validatedResponse.data.totalPages,
-      currentPage: validatedResponse.data.currentPage,
-    };
+    return validatedResponse.data;
   } catch (error) {
     console.error('getSocialCalls', { error });
     createErrorMessage('Something went wrong fetching the data');
