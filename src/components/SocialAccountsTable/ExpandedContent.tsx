@@ -27,6 +27,7 @@ function ExpandedContent({ posts, loading }: ExpandedContentProps) {
       },
     ],
   );
+
   return (
     <Table
       className='max-h-[300px]'

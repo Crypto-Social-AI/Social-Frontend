@@ -3,6 +3,11 @@ import TokenSymbolAndName from '../TokenSymbolAndName/TokenSymbolAndName';
 import NumberFormat from 'components/NumberFormat.tsx/NumberFormat';
 import Tooltip from 'components/Tooltip/Tooltip';
 import { truncateString } from 'lib/utils/helpers/format/format';
+import {
+  getCurrentProfitPercentage,
+  getMaxProfitPercentage,
+  getProfitForTimeRange,
+} from 'lib/utils/helpers/calculations/calculateProfit';
 
 type GetSocialMediaSourceProps = {
   isTwitter: boolean;
@@ -64,7 +69,7 @@ export default [
     sortKey: 'currentProfitLoss',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const currentProfitLoss = record.currentProfitLoss;
+      const currentProfitLoss = record.currentProfitLoss || getCurrentProfitPercentage(record);
       const bgColor = currentProfitLoss !== null && currentProfitLoss < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = currentProfitLoss !== null && currentProfitLoss < 0 ? 'redArb' : 'greenArb';
 
@@ -82,7 +87,7 @@ export default [
     sortKey: 'maxProfitLoss',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const maxProfitLoss = record.maxProfitLoss;
+      const maxProfitLoss = record.maxProfitLoss || getMaxProfitPercentage(record);
       const bgColor = maxProfitLoss && maxProfitLoss < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = maxProfitLoss && maxProfitLoss < 0 ? 'redArb' : 'greenArb';
 
@@ -101,7 +106,8 @@ export default [
     sortKey: 'profitForOneHour',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const profitForOneHour = record.profitForOneHour;
+      const profitForOneHour =
+        record.profitForOneHour || getProfitForTimeRange(record, 'priceInComommonTokenOneHourLater');
       const bgColor = profitForOneHour && profitForOneHour < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = profitForOneHour && profitForOneHour < 0 ? 'redArb' : 'greenArb';
 
@@ -119,7 +125,8 @@ export default [
     sortKey: 'profitForEightHours',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const profitForEightHours = record.profitForEightHours;
+      const profitForEightHours =
+        record.profitForEightHours || getProfitForTimeRange(record, 'priceInComommonTokenEightHoursLater');
       const bgColor = profitForEightHours && profitForEightHours < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = profitForEightHours && profitForEightHours < 0 ? 'redArb' : 'greenArb';
 
@@ -137,7 +144,8 @@ export default [
     sortKey: 'profitForOneDayHour',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const profitForOneDayHour = record.profitForOneDayHour;
+      const profitForOneDayHour =
+        record.profitForOneDayHour || getProfitForTimeRange(record, 'priceInComommonTokenOneDayLater');
       const bgColor = profitForOneDayHour && profitForOneDayHour < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = profitForOneDayHour && profitForOneDayHour < 0 ? 'redArb' : 'greenArb';
 
@@ -155,7 +163,8 @@ export default [
     sortKey: 'profitForSevenDays',
     headerClassName: 'w-0',
     render: (record: SocialPost) => {
-      const profitForSevenDays = record.profitForSevenDays;
+      const profitForSevenDays =
+        record.profitForSevenDays || getProfitForTimeRange(record, 'priceInComommonTokenOneWeekLater');
       const bgColor = profitForSevenDays && profitForSevenDays < 0 ? 'bg-red-opacity-20' : 'bg-green-opacity-20';
       const textColor = profitForSevenDays && profitForSevenDays < 0 ? 'redArb' : 'greenArb';
 

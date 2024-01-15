@@ -28,6 +28,6 @@ export default [
     header: 'Posts',
     sortable: true,
     sortKey: 'postCount',
-    render: (record: SocialAccountWithPost) => <span>{record?.posts?.length}</span>,
+    render: (record: SocialAccountWithPost) => <span>{record?.postCount}</span>,
   },
 ];
