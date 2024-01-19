@@ -1,5 +1,7 @@
 import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
 import { HiChevronDown } from 'react-icons/hi2';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 type PaginationControlsProps = {
   currentPage: number;
@@ -26,9 +28,11 @@ export default function PaginationControls({
         >
           <HiChevronLeft size={24} />
         </button>
-        <span className='text-2xl px-4'>
-          {currentPage} of {totalPages}
-        </span>
+        <span className='text-2xl px-2'>{currentPage} of</span>
+        {(totalPages !== 0 && <span className='text-2xl px-2'>{totalPages}</span>) || (
+          <Skeleton width={20} height={20} />
+        )}
+
         <button
           className='flex items-center border-l border-primary hover:bg-secondary transition-all duration-150 rounded-r-xl'
           disabled={currentPage >= totalPages}
