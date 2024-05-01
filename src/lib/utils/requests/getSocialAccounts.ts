@@ -2,12 +2,13 @@ import { AccountsResponseSchema } from 'lib/schemas';
 import { type SocialAccountWithPost, type GenericResponse } from 'lib/types';
 import createErrorMessage from '../notifications/createErrorMessage';
 import { TABLE_RECORDS_PER_PAGE_LIMIT } from '../constants/general';
+import { backendBaseUrl } from '../constants/baseUrls';
 
 export async function getSocialAccounts(
   page: number = 1,
   limit: number = TABLE_RECORDS_PER_PAGE_LIMIT,
 ): Promise<GenericResponse<SocialAccountWithPost[]>> {
-  const url = `http://localhost:4000/socialAccount?page=${page}&limit=${limit}`;
+  const url = `${backendBaseUrl}/socialAccount?page=${page}&limit=${limit}`;
 
   try {
     const res = await fetch(url);

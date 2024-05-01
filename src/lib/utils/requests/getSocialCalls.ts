@@ -1,13 +1,14 @@
 import { PostsResponseSchema } from 'lib/schemas';
+import { type GenericResponse, type SocialPosts } from 'lib/types';
 import createErrorMessage from '../notifications/createErrorMessage';
 import { TABLE_RECORDS_PER_PAGE_LIMIT } from '../constants/general';
-import { type GenericResponse, type SocialPosts } from 'lib/types';
+import { backendBaseUrl } from '../constants/baseUrls';
 
 export async function getSocialCalls(
   page: number = 1,
   limit: number = TABLE_RECORDS_PER_PAGE_LIMIT,
 ): Promise<GenericResponse<SocialPosts>> {
-  const url = `http://localhost:4000/socialPost?page=${page}&limit=${limit}`;
+  const url = `${backendBaseUrl}/socialPost?page=${page}&limit=${limit}`;
 
   try {
     const res = await fetch(url);
