@@ -52,7 +52,10 @@ export default function useTableData<T>(
 
   const handleItemsPerPageChange = (newLimit: number) => {
     setItemsPerPage(newLimit);
-    setCurrentPage(1);
+
+    if (data && currentPage * itemsPerPage > data.length) {
+      setCurrentPage(1);
+    }
   };
 
   const fetchData = async (page: number, limit: number) => {
@@ -62,7 +65,13 @@ export default function useTableData<T>(
         const response = await fetchFunction(page, limit);
         const processedData = processData(response.data);
         setData(processedData);
-        setTotalPages(response.totalPages ?? 1);
+
+        const receivedTotalPages = response.totalPages ?? 1;
+        setTotalPages(receivedTotalPages);
+
+        if (receivedTotalPages < page) {
+          setCurrentPage(receivedTotalPages);
+        }
       } catch (error) {
         console.error({ error });
       } finally {

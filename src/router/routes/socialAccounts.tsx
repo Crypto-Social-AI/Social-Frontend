@@ -17,10 +17,16 @@ export default function SocialAccounts() {
       postCount: account?.posts?.length || 0,
     }));
 
-  const { data, loading, sortConfig, handlePageChange, handleSortChange, currentPage, totalPages } = useTableData(
-    getSocialAccounts,
-    processData,
-  );
+  const {
+    data,
+    loading,
+    sortConfig,
+    handlePageChange,
+    handleItemsPerPageChange,
+    handleSortChange,
+    currentPage,
+    totalPages,
+  } = useTableData(getSocialAccounts, processData);
 
   const processedData = processData(data ?? []);
   const sortedData = sortData<SocialAccountWithPost, keyof SocialAccountWithPost>(processedData ?? [], sortConfig);
@@ -37,7 +43,7 @@ export default function SocialAccounts() {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
-        onItemsPerPageChange={handlePageChange}
+        onItemsPerPageChange={handleItemsPerPageChange}
       />
     </Container>
   );
