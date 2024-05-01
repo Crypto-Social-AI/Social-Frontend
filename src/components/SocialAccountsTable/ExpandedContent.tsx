@@ -10,8 +10,10 @@ type ExpandedContentProps = {
 };
 
 function ExpandedContent({ posts, loading }: ExpandedContentProps) {
+  const socialCallsDataWithoutSortKey = socialCallsData.map(({ sortKey, ...rest }) => rest);
+
   const nestedSocialPostsColumnsData = getFilteredColumnsData(
-    socialCallsData,
+    socialCallsDataWithoutSortKey,
     ['channel'],
     [
       {
