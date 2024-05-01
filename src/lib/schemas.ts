@@ -1,13 +1,8 @@
 import { z } from 'zod';
 
-export const PostSchema = z.object({
-  channelLink: z.string().optional().nullable(),
-  channelName: z.string().optional().nullable(),
+export const BasePostSchema = z.object({
   codeUnixTimestampInSeconds: z.number(),
   id: z.number(),
-  isDiscord: z.boolean().default(false),
-  isTelegram: z.boolean().default(false),
-  isTwitter: z.boolean().default(false),
   isUniswapV2: z.boolean().default(false),
   isUniswapV3: z.boolean().default(false),
   liquidityInCommonTokenAtMessage: z.string().nullable(),
@@ -15,8 +10,6 @@ export const PostSchema = z.object({
   message: z.string().nullable(),
   messageUnixTimestampInSeconds: z.number(),
   pairAddress: z.string().optional(),
-  photo: z.string().optional().nullable(),
-  priceInUsdAtMessageAtMessage: z.string().nullable(),
   priceInComommonTokenAtMessage: z.string().nullable(),
   priceInComommonTokenOneMinuteLater: z.string().nullable(),
   priceInComommonTokenFiveMinutesLater: z.string().nullable(),
@@ -32,36 +25,46 @@ export const PostSchema = z.object({
   priceInComommonTokenTwoWeeksLater: z.string().nullable(),
   priceInComommonTokenThreeWeeksLater: z.string().nullable(),
   priceInComommonTokenOneMonthLater: z.string().nullable(),
+  priceInUsdAtMessageAtMessage: z.string().nullable(),
   socialAccountId: z.number(),
   tokenAddress: z.string().optional(),
   tokenImage: z.string().nullable(),
   tokenName: z.string().nullable(),
   tokenSymbol: z.string().nullable(),
+});
+
+export const PostSchema = BasePostSchema.extend({
+  channelLink: z.string().optional().nullable(),
+  channelName: z.string().optional().nullable(),
+  isDiscord: z.boolean().default(false),
+  isTelegram: z.boolean().default(false),
+  isTwitter: z.boolean().default(false),
+  photo: z.string().optional().nullable(),
   username: z.string().optional(),
 });
 
 export const PostsResponseSchema = z.object({
-  message: z.string(),
-  totalPages: z.number(),
   currentPage: z.number(),
   data: z.array(PostSchema),
+  message: z.string(),
+  totalPages: z.number(),
 });
 
 export const AccountWithPostsSchema = z.object({
-  id: z.string(),
-  username: z.string().optional(),
   channelLink: z.string().optional().nullable(),
   channelName: z.string().optional().nullable(),
-  photo: z.string().optional().nullable(),
-  isTwitter: z.boolean().default(false),
-  isTelegram: z.boolean().default(false),
+  id: z.number(),
   isDiscord: z.boolean().default(false),
-  posts: PostSchema.array(),
+  isTelegram: z.boolean().default(false),
+  isTwitter: z.boolean().default(false),
+  photo: z.string().optional().nullable(),
+  posts: z.array(BasePostSchema),
+  username: z.string().optional(),
 });
 
 export const AccountsResponseSchema = z.object({
-  message: z.string(),
   currentPage: z.number(),
-  totalPages: z.number(),
   data: z.array(AccountWithPostsSchema),
+  message: z.string(),
+  totalPages: z.number(),
 });
