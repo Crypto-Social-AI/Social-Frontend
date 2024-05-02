@@ -43,9 +43,7 @@ function Table<K extends keyof any>({
     <>
       <div
         onScroll={handleScroll}
-        className={clsx('mx-auto w-full overflow-x-auto rounded-md', className, {
-          'border border-secondary': !loading,
-        })}
+        className={clsx('mx-auto w-full overflow-x-auto rounded-md border border-secondary', className)}
       >
         <table className='w-full rounded-md text-xl text-left text-text-primary whitespace-nowrap'>
           {showHeader && (
