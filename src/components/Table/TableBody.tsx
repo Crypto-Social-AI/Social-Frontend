@@ -9,14 +9,14 @@ type TableBodyProps = CommonTableProps & {
 };
 
 function TableBody({ displayedData, loading, ...props }: TableBodyProps) {
-  const skeletonRowCount = 12;
+  const skeletonRowCount = 14;
   const columnCount = props?.renderedRecords?.length;
 
   const renderSkeletonRows = () => {
     return Array.from({ length: skeletonRowCount }).map((_, rowIndex) => (
       <tr key={`skeleton-row-${rowIndex}`}>
         <td colSpan={columnCount + 1}>
-          <Skeleton height={45.5} />
+          <Skeleton height={43.3} />
         </td>
       </tr>
     ));
