@@ -92,9 +92,11 @@ const getPriceDifferencePercentage = (initialPrice: string | null, finalPrice: s
   if (initialPrice !== null && finalPrice !== null) {
     const initial = parseFloat(initialPrice);
     const final = parseFloat(finalPrice);
-    return ((final - initial) / initial) * 100;
+    if (!isNaN(initial) && !isNaN(final) && initial !== 0) {
+      return ((final - initial) / initial) * 100;
+    }
   }
-  return null;
+  return 0;
 };
 
 export const getProfitForTimeRange = (socialCallData: SocialPost, timeRangeKey: keyof SocialPost) => {
