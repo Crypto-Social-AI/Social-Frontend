@@ -34,7 +34,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.3",
     "stream": "^0.0.2",
-    "typescript": "5.4.0",
+    "typescript": "*",
     "url": "latest",
     "web-vitals": "^2.1.0",
     "zlib": "npm:browserify-zlib",
