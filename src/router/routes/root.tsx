@@ -1,10 +1,17 @@
-import { ConnectWallet, useAddress } from '@thirdweb-dev/react';
-import Container from 'components/Container/Container';
+import { ConnectButton, useActiveAccount } from 'thirdweb/react';
+import { createThirdwebClient } from 'thirdweb';
 import { FaWallet } from 'react-icons/fa6';
+import Container from 'components/Container/Container';
 import SocialCalls from './socialCalls';
 
 export default function Root() {
-  const address = useAddress();
+  const account = useActiveAccount();
+  const address = account?.address;
+
+  let client;
+  if (process.env.REACT_APP_THIRDWEB_CLIENT_ID !== undefined) {
+    client = createThirdwebClient({ clientId: process.env.REACT_APP_THIRDWEB_CLIENT_ID });
+  }
 
   return (
     <Container className='px-12'>
@@ -18,9 +25,11 @@ export default function Root() {
             </div>
             <h2 className='text-3xl text-contrast'>Connect wallet</h2>
             <span className='text-text-primary'>Connect your wallet by clicking the button below to proceed</span>
-            <div>
-              <ConnectWallet />
-            </div>
+            {client !== undefined ? (
+              <div>
+                <ConnectButton client={client} />
+              </div>
+            ) : null}
           </>
         </div>
       )}

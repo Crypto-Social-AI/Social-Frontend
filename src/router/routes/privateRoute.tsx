@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useAddress } from '@thirdweb-dev/react';
+import { useActiveAccount } from 'thirdweb/react';
 import { useEffect } from 'react';
 
 export default function PrivateRouteWrapper() {
@@ -11,7 +11,9 @@ export default function PrivateRouteWrapper() {
 }
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const address = useAddress();
+  const account = useActiveAccount();
+  const address = account?.address;
+
   const navigate = useNavigate();
   const location = useLocation();
 
