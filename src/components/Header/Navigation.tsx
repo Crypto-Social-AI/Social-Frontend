@@ -1,8 +1,9 @@
-import { useAddress } from '@thirdweb-dev/react';
+import { useActiveAccount } from 'thirdweb/react';
 import NavigationLinks from './NavigationLinks';
 
 export default function Navigation() {
-  const address = useAddress();
+  const account = useActiveAccount();
+  const address = account?.address;
 
   return (
     <>
