@@ -1,4 +1,4 @@
-import { useAddress } from '@thirdweb-dev/react';
+import { useActiveAccount } from 'thirdweb/react';
 import { type SortConfig } from 'lib/types';
 import { TABLE_RECORDS_PER_PAGE_LIMIT } from 'lib/utils/constants/general';
 import { useState, useEffect } from 'react';
@@ -26,7 +26,8 @@ export default function useTableData<T>(
   processData: ProcessDataFunction<T>,
   initialSortConfig?: SortConfig<keyof T>,
 ): UseTableDataReturn<T> {
-  const address = useAddress();
+  const account = useActiveAccount();
+  const address = account?.address;
   const [data, setData] = useState<T[] | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
