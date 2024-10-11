@@ -8,8 +8,7 @@ export default function Root() {
   const address = useAddress();
 
   return (
-    <div className='flex justify-center items-center min-h-screen'>
-      <Container className='px-12'>
+      <Container className='px-12 flex flex-col justify-center items-center min-h-screen'>
         {address ? (
           <SocialCalls />
         ) : (
@@ -29,6 +28,5 @@ export default function Root() {
           </div>
         )}
       </Container>
-    </div>
   );
 }
