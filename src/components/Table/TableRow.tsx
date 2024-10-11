@@ -1,8 +1,12 @@
-import { HiChevronDown, HiChevronUp } from 'react-icons/hi2';
 import { type CommonTableProps } from 'lib/types';
+import { useEffect, useState } from 'react';
+import { FaStar } from 'react-icons/fa6'; // Outlined star icon
+import { HiChevronDown, HiChevronUp, HiStar } from 'react-icons/hi2';
 
 type TableRowProps = CommonTableProps & {
   record: any;
+  onWatchlistToggle: (username: string) => void; // Required
+  isInWatchlist: (username: string) => boolean; // Required
 };
 
 function TableRow({
@@ -15,13 +19,27 @@ function TableRow({
   expandedRowId,
   setExpandedRowId,
   renderExpandedContent,
+  onWatchlistToggle, 
+  isInWatchlist, 
 }: TableRowProps) {
+  const [inWatchlist, setInWatchlist] = useState(isInWatchlist(record.username)); // Local state for watchlist status
+
+  // Update local state when the record's watchlist status changes
+  useEffect(() => {
+    setInWatchlist(isInWatchlist(record.username));
+  }, [record.username, isInWatchlist]); // Rerun effect when username changes or isInWatchlist function changes
+
   const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     const newExpandedRowId = record?.[idProp] === expandedRowId ? null : record?.[idProp];
     if (setExpandedRowId) {
       setExpandedRowId(newExpandedRowId);
     }
+  };
+
+  const handleWatchlistToggle = (username: string) => {
+    onWatchlistToggle(username);
+    setInWatchlist(!inWatchlist); 
   };
 
   return (
@@ -50,6 +68,17 @@ function TableRow({
         {renderedRecords.map((recordItem: any) => (
           <td key={recordItem.id} className='px-6 py-4'>
             {recordItem.render(record, record[recordItem.id])}
+
+            {/* Watchlist Star Icon */}
+            {recordItem.id === 'watchlist' && (
+              <button onClick={() => handleWatchlistToggle(record.username)} className='flex items-center'>
+                {inWatchlist ? ( // Use local state for rendering
+                  <HiStar className='text-yellow-500' />
+                ) : (
+                  <FaStar className='text-gray-500' />
+                )}
+              </button>
+            )}
           </td>
         ))}
       </tr>
