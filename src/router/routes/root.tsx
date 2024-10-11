@@ -1,4 +1,5 @@
 import { ConnectWallet, useAddress } from '@thirdweb-dev/react';
+import appLogo from 'assets/images/social-logo.png';
 import Container from 'components/Container/Container';
 import { FaWallet } from 'react-icons/fa6';
 import SocialCalls from './socialCalls';
@@ -22,7 +23,7 @@ export default function Root() {
                 Connect your wallet by clicking the button below to proceed
               </span>
               <div>
-                <ConnectWallet />
+                <ConnectWallet modalTitle='SocialAI' modalTitleIconUrl={appLogo} />
               </div>
             </>
           </div>

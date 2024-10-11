@@ -13,7 +13,7 @@ export default function ConnectWalletBox() {
           <span className='text-3xl'>SocialAi</span>
         </div>
       </Link>
-      <ConnectWallet />
+      <ConnectWallet modalTitle='SocialAI' modalTitleIconUrl={appLogo} />
     </div>
   );
 }
