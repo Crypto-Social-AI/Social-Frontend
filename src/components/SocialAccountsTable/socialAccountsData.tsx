@@ -30,4 +30,10 @@ export default [
     sortKey: 'postCount',
     render: (record: SocialAccountWithPost) => <span>{record?.postCount}</span>,
   },
+  {
+    id: 'watchlist',
+    header: 'Watchlist',
+    sortable: false,
+    render: (record: SocialAccountWithPost) => <span>{record?.watchlist}</span>,
+  },
 ];
