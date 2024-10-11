@@ -6,9 +6,11 @@ import TableRow from './TableRow';
 type TableBodyProps = CommonTableProps & {
   displayedData: any;
   loading?: boolean;
+  onWatchlistToggle: (username: string) => void; 
+  isInWatchlist: (username: string) => boolean; 
 };
 
-function TableBody({ displayedData, loading, ...props }: TableBodyProps) {
+function TableBody({ displayedData, loading, onWatchlistToggle, isInWatchlist, ...props }: TableBodyProps) {
   const skeletonRowCount = 14;
   const columnCount = props?.renderedRecords?.length;
 
@@ -26,7 +28,15 @@ function TableBody({ displayedData, loading, ...props }: TableBodyProps) {
     <tbody className='table-rounded-bottom'>
       {loading
         ? renderSkeletonRows()
-        : displayedData?.map((item: any) => <TableRow key={item?.[props.idProp]} record={item} {...props} />)}
+        : displayedData?.map((item: any) => (
+            <TableRow
+              key={item?.[props.idProp]}
+              record={item}
+              onWatchlistToggle={onWatchlistToggle} 
+              isInWatchlist={isInWatchlist}
+              {...props}
+            />
+          ))}
     </tbody>
   );
 }
