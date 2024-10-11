@@ -1,10 +1,10 @@
 import Container from 'components/Container/Container';
-import SocialAccountsTable from 'components/SocialAccountsTable/SocialAccountsTable';
 import PaginationControls from 'components/PaginationControls/PaginationControls';
-import { type SocialAccountWithPost } from 'lib/types';
-import { getSocialAccounts } from 'lib/utils/requests/getSocialAccounts';
-import sortData from 'lib/utils/helpers/sorting/sorting';
+import SocialAccountsTable from 'components/SocialAccountsTable/SocialAccountsTable';
 import useTableData from 'hooks/useTableData';
+import { type SocialAccountWithPost } from 'lib/types';
+import sortData from 'lib/utils/helpers/sorting/sorting';
+import { getSocialAccounts } from 'lib/utils/requests/getSocialAccounts';
 
 type ExtendedSocialAccount = SocialAccountWithPost & {
   postCount: number;
@@ -31,6 +31,25 @@ export default function SocialAccounts() {
   const processedData = processData(data ?? []);
   const sortedData = sortData<SocialAccountWithPost, keyof SocialAccountWithPost>(processedData ?? [], sortConfig);
 
+  const handleWatchlistToggle = (username: string) => {
+    const currentWatchlist = JSON.parse(localStorage.getItem('watchlist') ?? '[]');
+    if (currentWatchlist.includes(username)) {
+      // Remove from watchlist
+      const updatedWatchlist = currentWatchlist.filter((user: string) => user !== username);
+      localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
+    } else {
+      // Add to watchlist
+      currentWatchlist.push(username);
+      localStorage.setItem('watchlist', JSON.stringify(currentWatchlist));
+    }
+  };
+
+  // Function to check if a username is in the watchlist
+  const isInWatchlist = (username: string): boolean => {
+    const currentWatchlist = JSON.parse(localStorage.getItem('watchlist') ?? '[]');
+    return currentWatchlist.includes(username);
+  };
+
   return (
     <Container className='px-12'>
       <SocialAccountsTable
@@ -38,6 +57,8 @@ export default function SocialAccounts() {
         loading={loading}
         sortConfig={sortConfig}
         handleSortChange={handleSortChange}
+        onWatchlistToggle={handleWatchlistToggle} // Pass the handler to the table
+        isInWatchlist={isInWatchlist} // Pass the function to check if in watchlist
       />
       <PaginationControls
         currentPage={currentPage}
