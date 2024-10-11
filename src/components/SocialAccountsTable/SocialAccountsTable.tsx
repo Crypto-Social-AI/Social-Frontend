@@ -1,13 +1,15 @@
 import Table from 'components/Table/Table';
-import { type SortConfig, type SocialAccountWithPost } from 'lib/types';
-import socialAccountsData from './socialAccountsData';
+import { type SocialAccountWithPost, type SortConfig } from 'lib/types';
 import ExpandedContent from './ExpandedContent';
+import socialAccountsData from './socialAccountsData';
 
 type SocialAccountsTableProps = {
   socialAccounts: SocialAccountWithPost[] | null;
   loading: boolean;
   handleSortChange: (key: keyof SocialAccountWithPost) => void;
   sortConfig?: SortConfig<keyof SocialAccountWithPost> | null;
+  onWatchlistToggle: (username: string) => void;
+  isInWatchlist: (username: string) => boolean;
 };
 
 export default function SocialAccountsTable({
@@ -15,6 +17,8 @@ export default function SocialAccountsTable({
   loading,
   sortConfig,
   handleSortChange,
+  onWatchlistToggle,
+  isInWatchlist,
 }: SocialAccountsTableProps) {
   return (
     <Table
@@ -25,6 +29,8 @@ export default function SocialAccountsTable({
       renderedRecords={socialAccountsData}
       sortConfig={sortConfig}
       handleSortClick={handleSortChange}
+      onWatchlistToggle={onWatchlistToggle}
+      isInWatchList={isInWatchlist}
       idProp='id'
       renderExpandedContent={(record) => <ExpandedContent posts={record.posts} />}
       isExpandable
