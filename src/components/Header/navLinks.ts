@@ -15,6 +15,11 @@ const navLinks: NavLinkProps[] = [
     linkUrl: '/socialAccounts',
     text: 'Top accounts',
   },
+  {
+    id: 2,
+    linkUrl: '/socialWatchlist',
+    text: 'Account watchlist',
+  },
 ];
 
 export default navLinks;

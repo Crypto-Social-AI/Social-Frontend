@@ -10,7 +10,7 @@ type ExtendedSocialAccount = SocialAccountWithPost & {
   postCount: number;
 };
 
-export default function SocialAccounts() {
+export default function SocialWatchlist() {
   const processData = (data: SocialAccountWithPost[]): ExtendedSocialAccount[] =>
     data?.map((account) => ({
       ...account,
@@ -28,8 +28,15 @@ export default function SocialAccounts() {
     totalPages,
   } = useTableData(getSocialAccounts, processData);
 
+  // Get the current watchlist from local storage
+  const watchlist = JSON.parse(localStorage.getItem('watchlist') ?? '[]');
+
+  // Process and filter data to include only watchlisted accounts
   const processedData = processData(data ?? []);
-  const sortedData = sortData<SocialAccountWithPost, keyof SocialAccountWithPost>(processedData ?? [], sortConfig);
+  const filteredData = processedData.filter((account) => watchlist.includes(account.username));
+
+  // Sort the filtered data
+  const sortedData = sortData<ExtendedSocialAccount, keyof ExtendedSocialAccount>(filteredData, sortConfig);
 
   const handleWatchlistToggle = (username: string) => {
     const currentWatchlist = JSON.parse(localStorage.getItem('watchlist') ?? '[]');
@@ -58,14 +65,14 @@ export default function SocialAccounts() {
         sortConfig={sortConfig}
         handleSortChange={handleSortChange}
         onWatchlistToggle={handleWatchlistToggle} // Pass the handler to the table
-        isInWatchlist={isInWatchlist} // Pass the function to check if in watchlist
+        isInWatchlist={isInWatchlist}
       />
-      <PaginationControls
+      {/* <PaginationControls
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
         onItemsPerPageChange={handleItemsPerPageChange}
-      />
+      /> */}
     </Container>
   );
 }

@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import clsx from 'clsx';
 import { type CommonTableProps, type SortConfig } from 'lib/types';
-import TableHeader from './TableHeader';
-import TableBody from './TableBody';
+import { useState } from 'react';
 import EmptyRecordsBox from './EmptyRecordsBox';
+import TableBody from './TableBody';
+import TableHeader from './TableHeader';
 
 type TableProps<K extends keyof any> = CommonTableProps & {
   loading?: boolean;
@@ -12,6 +12,8 @@ type TableProps<K extends keyof any> = CommonTableProps & {
   showHeader?: boolean;
   displayedData: any;
   sortConfig?: SortConfig<K> | null;
+  onWatchlistToggle?: (username: string) => void;
+  isInWatchList?: (username: string) => boolean;
   showTotalRecordsInfo?: boolean;
   uncommonToken?: any;
   dataSrc: any;
@@ -31,6 +33,8 @@ function Table<K extends keyof any>({
   dataSrc,
   renderedRecords,
   sortConfig,
+  onWatchlistToggle = () => {}, // Provide default
+  isInWatchList = () => false, // Provide default
   showHeader = true,
   handleScroll = () => {},
   idProp = '_id',
@@ -66,6 +70,8 @@ function Table<K extends keyof any>({
             expandedRowId={expandedRowId}
             setExpandedRowId={setExpandedRowId}
             renderExpandedContent={renderExpandedContent}
+            onWatchlistToggle={onWatchlistToggle} 
+            isInWatchlist={isInWatchList} 
           />
         </table>
         {!loading && !hasData && <EmptyRecordsBox />}

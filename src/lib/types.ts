@@ -24,6 +24,8 @@ export type CommonTableProps = {
   expandedRowId?: string | null;
   setExpandedRowId?: React.Dispatch<React.SetStateAction<string | null>>;
   renderExpandedContent?: (record: any) => JSX.Element;
+  onWatchlistToggle?: (username: string) => void;
+  isInWatchlist?: (username: string) => boolean;
 };
 
 export type SortConfig<K extends keyof any> = {
