@@ -38,7 +38,7 @@ function ExpandedContent({ posts, loading }: ExpandedContentProps) {
       displayedData={posts}
       dataSrc={posts}
       loading={loading}
-      idProp='_id'
+      idProp='id'
       isExpandable
       renderExpandedContent={(record) => <ExpandedContentFromSocialCalls record={record} />}
     />
