@@ -1,8 +1,9 @@
-import { formatDistanceToNowStrict } from 'date-fns';
+import ExpandedContentFromSocialCalls from 'components/SocialCallsTable/ExpandedContent/ExpandedContent';
 import socialCallsData from 'components/SocialCallsTable/socialCallsData';
 import Table from 'components/Table/Table';
-import { getFilteredColumnsData } from 'lib/utils/helpers/format/format';
+import { formatDistanceToNowStrict } from 'date-fns';
 import { type SocialPosts } from 'lib/types';
+import { getFilteredColumnsData } from 'lib/utils/helpers/format/format';
 
 type ExpandedContentProps = {
   posts: SocialPosts;
@@ -37,7 +38,9 @@ function ExpandedContent({ posts, loading }: ExpandedContentProps) {
       displayedData={posts}
       dataSrc={posts}
       loading={loading}
-      idProp='_id'
+      idProp='id'
+      isExpandable
+      renderExpandedContent={(record) => <ExpandedContentFromSocialCalls record={record} />}
     />
   );
 }
